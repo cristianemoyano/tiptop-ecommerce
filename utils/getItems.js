@@ -1,5 +1,9 @@
 import data from '../pages/api/data.json';
 
+import { db } from '../services/firebase-config';
+import { collection, getDocs } from 'firebase/firestore';
+
+
 // Shuffle the items
 const shuffle = (array) => {
   let currentIndex = array.length,
@@ -21,8 +25,24 @@ const shuffle = (array) => {
   return array;
 };
 
+
 const getItems = () => {
   return shuffle(data.clothes);
 };
+
+
+export const getProducts = () => {
+  // TODO READ FROM API
+  const clothesRef= collection(db, 'clothes');
+  getDocs(clothesRef).then(
+    (snapshot)=>{
+      snapshot.forEach(
+        (doc) => {
+          console.log(doc.id, "= > ", doc.data());
+        }
+      )
+    }
+  );
+}
 
 export default getItems;

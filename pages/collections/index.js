@@ -4,6 +4,9 @@ import Head from 'next/head';
 import { useSelector } from 'react-redux';
 import styled from 'styled-components';
 
+import { db } from '../../services/firebase-config';
+import { collection, getDocs } from 'firebase/firestore';
+
 import BrandFilter from '../../components/BrandFilter';
 import CategoryFilter from '../../components/CategoryFilter';
 import ItemCard from '../../components/ItemCard';
@@ -108,6 +111,17 @@ const Products = ({ clothes, brands, categories }) => {
   const filteredCategories = useSelector((state) => state.filter.categories);
   const filteredSort = useSelector((state) => state.filter.sort);
 
+  const clothesRef= collection(db, 'clothes');
+  getDocs(clothesRef).then(
+    (snapshot)=>{
+      snapshot.forEach(
+        (doc) => {
+          console.log(doc.id, "= > ", doc.data());
+        }
+      )
+    }
+  );
+
   const texts = getText('es');
 
   let filteredClothes;
@@ -183,6 +197,8 @@ const Products = ({ clothes, brands, categories }) => {
 };
 
 export const getStaticProps = (context) => {
+
+  debugger
   const items = getItems();
 
   const brands = items.reduce((previous, current) => {

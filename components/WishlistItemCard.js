@@ -162,6 +162,7 @@ const WishlistItemCard = ({
   amount,
   category,
   setImage,
+  sizes
 }) => {
   const [pickedSize, setPickedSize] = useState('');
   const [showSizePicker, setShowSizePicker] = useState(false);
@@ -203,8 +204,13 @@ const WishlistItemCard = ({
   };
 
   const moveToCartHandler = (ev, fromModal = false) => {
+  
     if (size) {
       if (isInCart) {
+
+        alert('Éste producto ya se encuentra en tu carrito y la cantidad máxima es 1')
+        return
+
         const updatedItem = {
           ...cartItem,
           itemQuantity: (+cartItem.itemQuantity + 1).toString(),
@@ -241,6 +247,9 @@ const WishlistItemCard = ({
       const isInCart = !!cartItem;
 
       if (isInCart) {
+        alert('Éste producto ya se encuentra en tu carrito y la cantidad máxima es 1')
+        return
+
         const updatedItem = {
           ...cartItem,
           itemQuantity: (+cartItem.itemQuantity + 1).toString(),
@@ -315,11 +324,13 @@ const WishlistItemCard = ({
                 <SizePickerForBottoms
                   currentSize={pickedSize}
                   onSetSize={setPickedSize}
+                  sizes={sizes}
                 />
               ) : (
                 <SizePickerForTops
                   currentSize={pickedSize}
                   onSetSize={setPickedSize}
+                  sizes={sizes}
                 />
               )}
             </div>

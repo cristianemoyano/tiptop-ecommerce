@@ -32,7 +32,7 @@ const ES = {
   "wishlist": {
     "empty": "Tu lista de deseos está vacía",
     "title": "Lista de deseos",
-    "added": "Agregado <3",
+    "added": "Agregado ",
     "items": "producto/s",
     "moveToCart": "Añadir al carrito",
     "selectSize": "Seleccionar tamaño",

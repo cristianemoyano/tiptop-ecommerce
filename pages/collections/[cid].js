@@ -16,6 +16,7 @@ import SizeChartForTops from '../../components/SizeChartForTops';
 import SizeChartForBottoms from '../../components/SizeChartForBottoms';
 import { CURRENCY, getFormattedCurrency } from '../../utils/getFormattedCurrency';
 import { getText } from '../../utils/getText';
+import { WishlistIcon } from '../../assets/icons';
 
 const MainNav = styled.div`
   font-size: 14px;
@@ -131,7 +132,8 @@ const Div = styled.div`
 
             &.active {
               border-color: #4a00e0;
-              color: #4a00e0;
+              color: white;
+              background-color: black;
             }
 
             &:last-child {
@@ -190,6 +192,12 @@ const Div = styled.div`
           background-color: white;
           border: 1px #4a00e0 solid;
           color: #4a00e0;
+        }
+
+        .wishlist-active {
+          background-color: white;
+          border: 1px gray solid;
+          color: gray;
         }
       }
     }
@@ -333,6 +341,11 @@ const ItemDetails = ({ id, imageURL, brand, category, name, amount, stock, sizes
 
   const addToCartHandler = () => {
     if (user) {
+      if (isInCart) {
+        debugger
+        alert('Éste producto ya se encuentra en tu carrito y la cantidad máxima es 1')
+        return
+      }
       if (size) {
         setPromptSize(false);
         setIsLoading(true);
@@ -395,6 +408,15 @@ const ItemDetails = ({ id, imageURL, brand, category, name, amount, stock, sizes
 
   const texts = getText('es');
 
+  const wishlistIcon = () => {
+    return (
+      <>
+      {texts.wishlist.added}
+      <WishlistIcon/> 
+      </>
+    )
+  }
+
   return (
     <>
       <MainNav>
@@ -443,11 +465,11 @@ const ItemDetails = ({ id, imageURL, brand, category, name, amount, stock, sizes
             </div>
             <div className="actions">
               <button
-                className="wishlist"
+                className={isWishlisted ? "wishlist-active" : "wishlist" }
                 onClick={addToWishlistHandler}
                 disabled={isWishlisted}
               >
-                {isWishlisted ? texts.wishlist.added : texts.wishlist.title}
+                {isWishlisted ?  wishlistIcon() : texts.wishlist.title}
               </button>
               <button
                 className="cart"

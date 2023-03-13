@@ -48,9 +48,9 @@ const Home = () => {
         <title>Online Shopping for Men - Tiptop</title>
       </Head>
       <Div>
-        <p className="title">Wear better, look better.</p>
-        <p className="text">Don't you just love being in apparel?</p>
-        <Link href="/collections">Shop Now</Link>
+        <p className="title">Feria Americana</p>
+        <p className="text">Nota: Los productos listados son productos usados.</p>
+        <Link href="/collections">Ver productos</Link>
       </Div>
     </>
   );
