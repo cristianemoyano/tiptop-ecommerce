@@ -1,4 +1,5 @@
 import styled from 'styled-components';
+import { getText } from '../utils/getText';
 
 import CheckBox from './CheckBox';
 
@@ -34,9 +35,10 @@ const Div = styled.div`
 `;
 
 const BrandFilter = ({ items }) => {
+  const texts = getText('es')
   return (
     <Div>
-      <div className="heading">Brand</div>
+      <div className="heading">{texts.products.brand}</div>
       {items
         .sort((a, b) => a.localeCompare(b))
         .map((value, index) => (

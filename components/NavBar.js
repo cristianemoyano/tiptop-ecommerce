@@ -7,6 +7,7 @@ import BetterLink from './BetterLink';
 import Menu from './Menu';
 import { auth } from '../services/firebase-config';
 import { useSelector } from 'react-redux';
+import { getText } from '../utils/getText';
 
 const Div = styled.div`
   display: flex;
@@ -174,12 +175,14 @@ const NavBar = () => {
       });
   };
 
+  const texts = getText('es');
+
   return (
     <Div>
       <h1 className="title">
         <BetterLink href="/">
           <LogoIcon />
-          <p>tiptop</p>
+          <p>{texts.products.appName}</p>
         </BetterLink>
       </h1>
       <div className="box">

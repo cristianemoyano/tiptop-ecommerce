@@ -1,6 +1,7 @@
 import styled from 'styled-components';
 
 import { WishlistIcon } from '../assets/icons';
+import { getText } from '../utils/getText';
 
 const Div = styled.div`
   flex: 1;
@@ -35,12 +36,13 @@ const Div = styled.div`
 `;
 
 const EmptyWishlist = () => {
+  const texts = getText('es');
   return (
     <Div>
       <div className="round">
         <WishlistIcon />
       </div>
-      <p className="text">Your wishlist is empty</p>
+      <p className="text">{texts.wishlist.empty}</p>
     </Div>
   );
 };

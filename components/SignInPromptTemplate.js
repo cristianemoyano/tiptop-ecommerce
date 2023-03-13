@@ -2,6 +2,7 @@ import Link from 'next/link';
 import styled from 'styled-components';
 
 import { UserIcon } from '../assets/icons';
+import { getText } from '../utils/getText';
 
 const Div = styled.div`
   flex: 1;
@@ -58,14 +59,15 @@ const Div = styled.div`
 `;
 
 const SignInPromptTemplate = ({ type }) => {
+  const texts = getText('es');
   return (
     <Div>
       <div className="round">
         <UserIcon />
       </div>
-      <h2 className="title">Please Sign In</h2>
-      <p className="text">Sign In to view items in your {type}</p>
-      <Link href="/signin">Sign In</Link>
+      <h2 className="title">{texts.prompt.title}</h2>
+      <p className="text">{texts.prompt.text}: {type}</p>
+      <Link href="/signin">{texts.prompt.btn}</Link>
     </Div>
   );
 };

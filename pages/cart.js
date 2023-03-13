@@ -14,6 +14,7 @@ import OrderPlaced from '../components/OrderPlaced';
 import { db } from '../services/firebase-config';
 
 import { CURRENCY } from '../utils/getFormattedCurrency';
+import { getText } from '../utils/getText';
 
 const MainNav = styled.div`
   font-size: 14px;
@@ -173,7 +174,11 @@ const Cart = () => {
     (prev, cur) => prev + +cur.amount * +cur.quantity,
     0
   );
-  const discountValue = Math.floor(priceValue / 5);
+  let hasDiscount = false;
+  let discountValue = 0;
+  if (hasDiscount) {
+    discountValue = Math.floor(priceValue / 5);
+  }
   const totalValue = priceValue - discountValue;
 
   const placeOrderHandler = () => {
@@ -205,13 +210,15 @@ const Cart = () => {
     });
   };
 
+  const texts = getText('es');
+
   return (
     <>
       <Head>
-        <title>Cart</title>
+        <title>{texts.cart.title}</title>
       </Head>
       <MainNav>
-        <Link href="/">Home</Link> / <span>Cart</span>
+        <Link href="/">{texts.home.title}</Link> / <span>{texts.cart.title}</span>
       </MainNav>
       {isOrderPlaced ? (
         <OrderPlaced />
@@ -222,7 +229,7 @@ const Cart = () => {
             <Div>
               <div className="cart">
                 <div className="title">
-                  Cart <span>({clothes.length} items)</span>
+                {texts.cart.title} <span>({clothes.length} {texts.cart.items})</span>
                 </div>
                 <div className="clothes">
                   {clothes.map((item, index) => (
@@ -231,24 +238,28 @@ const Cart = () => {
                 </div>
               </div>
               <div className="checkout">
-                <div className="title">Price details</div>
+                <div className="title">{texts.cart.details}</div>
                 <div className="basic">
                   <div className="price">
-                    <div className="title">Price</div>
+                    <div className="title">{texts.cart.price}</div>
                     <div className="amount">{CURRENCY} {priceValue}</div>
                   </div>
-                  <div className="discount">
-                    <div className="title">Discount</div>
+                  {hasDiscount ? (
+                    <div className="discount">
+                    <div className="title">{texts.cart.discount}</div>
                     <div className="amount">- {CURRENCY} {discountValue}</div>
                   </div>
+                  ): (null)    
+                  }
+                  
                   <div className="shipping">
-                    <div className="title">Shipping</div>
-                    <div className="amount">FREE</div>
+                    <div className="title">{texts.cart.shipping}</div>
+                    <div className="amount">{texts.cart.free}</div>
                   </div>
                 </div>
                 <div className="total">
                   <div className="final">
-                    <div className="title">Total Amount</div>
+                    <div className="title">{texts.cart.total}</div>
                     <div className="amount">{CURRENCY} {totalValue}</div>
                   </div>
                   <button
@@ -259,7 +270,7 @@ const Cart = () => {
                     {isPlacingOrder ? (
                       <span className="loader"></span>
                     ) : (
-                      'Place Order'
+                      texts.cart.placeOrder
                     )}
                   </button>
                 </div>
@@ -269,7 +280,7 @@ const Cart = () => {
             <EmptyCart />
           )
         ) : (
-          <SignInPromptTemplate type="cart" />
+          <SignInPromptTemplate type={texts.cart.title} />
         ))
       )}
     </>

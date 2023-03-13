@@ -1,6 +1,7 @@
 import styled from 'styled-components';
 
 import { CartIcon } from '../assets/icons';
+import { getText } from '../utils/getText';
 
 const Div = styled.div`
   flex: 1;
@@ -36,12 +37,13 @@ const Div = styled.div`
 `;
 
 const EmptyCart = () => {
+  const texts = getText('es');
   return (
     <Div>
       <div className="round">
         <CartIcon />
       </div>
-      <p className="text">Your cart is empty</p>
+      <p className="text">{texts.cart.empty}</p>
     </Div>
   );
 };

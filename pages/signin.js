@@ -9,6 +9,7 @@ import { useSelector } from 'react-redux';
 import { LogoIcon } from '../assets/icons';
 import { validateEmail, validatePassword } from '../utils/formValidation';
 import { auth } from '../services/firebase-config';
+import { getText } from '../utils/getText';
 
 const MainNav = styled.div`
   font-size: 14px;
@@ -279,11 +280,11 @@ const SignIn = () => {
           console.log(errorCode);
 
           if (errorCode === 'auth/user-not-found') {
-            setServerErrorMessage("Account doesn't exist.");
+            setServerErrorMessage("Usuario no encontrado");
           } else if (errorCode === 'auth/wrong-password') {
-            setServerErrorMessage('Invalid password.');
+            setServerErrorMessage('Usuario/Contraseña inválida.');
           } else {
-            setServerErrorMessage('Something went wrong.');
+            setServerErrorMessage('Ups! Algo salió mal.');
           }
         })
         .finally(() => {
@@ -301,11 +302,11 @@ const SignIn = () => {
         console.log(errorCode);
 
         if (errorCode === 'auth/user-not-found') {
-          setServerErrorMessage("Account doesn't exist.");
+          setServerErrorMessage("Usuario no encontrado");
         } else if (errorCode === 'auth/wrong-password') {
-          setServerErrorMessage('Invalid password.');
+          setServerErrorMessage('Usuario/Contraseña inválida.');
         } else {
-          setServerErrorMessage('Something went wrong.');
+          setServerErrorMessage('Ups! Algo salió mal.');
         }
       })
       .finally(() => {
@@ -313,20 +314,22 @@ const SignIn = () => {
       });
   };
 
+  const texts = getText('es');
+
   return (
     <>
       <Head>
-        <title>Sign In</title>
+        <title>{texts.signin.title}</title>
       </Head>
       <MainNav>
-        <Link href="/">Home</Link> / <span>Sign In</span>
+        <Link href="/">{texts.home.title}</Link> / <span>{texts.signin.title}</span>
       </MainNav>
       <Div>
         {user ? (
           <>
             <p>
-              You are signed in as <span className="bold">{user.email}</span>.
-              You'll now be redirected.
+              Haz iniciado sesión con <span className="bold">{user.email}</span>.
+              Estás siendo redireccionado a la página principal.
             </p>
           </>
         ) : (
@@ -348,7 +351,7 @@ const SignIn = () => {
                     type="email"
                     name="email"
                     id="email"
-                    placeholder="Email"
+                    placeholder={texts.signin.email}
                     value={emailInput}
                     onChange={emailInputHandler}
                     onBlur={() => setStartEmailValidation(false)}
@@ -356,9 +359,9 @@ const SignIn = () => {
                   <span className="hint">{`${
                     startEmailValidation
                       ? emailInput.length === 0
-                        ? 'Email cannot be empty'
+                        ? texts.signin.required_email
                         : !validateEmail(emailInput)
-                        ? 'Email is not valid'
+                        ? texts.signin.invalid_email
                         : ''
                       : ''
                   }`}</span>
@@ -376,7 +379,7 @@ const SignIn = () => {
                     type="password"
                     name="password"
                     id="password"
-                    placeholder="Password"
+                    placeholder={texts.signin.password}
                     value={passwordInput}
                     onChange={passwordInputHandler}
                     onBlur={() => setStartPasswordValidation(false)}
@@ -384,29 +387,29 @@ const SignIn = () => {
                   <span className="hint">{`${
                     startPasswordValidation
                       ? passwordInput.length === 0
-                        ? 'Password cannot be empty'
+                        ? texts.signin.required_password
                         : !validatePassword(passwordInput)
-                        ? 'Min 6 characters required'
+                        ? texts.signin.invalid_password
                         : ''
                       : ''
                   }`}</span>
                 </div>
                 <button type="submit" disabled={isLoading}>
-                  {isLoading ? <span className="loader"></span> : 'Sign In'}
+                  {isLoading ? <span className="loader"></span> : texts.signin.title}
                 </button>
               </form>
               <div className="ext">
-                <button
+                {/* <button
                   type="button"
                   disabled={isGuestLoading}
                   onClick={signInAsGuestHandler}
                 >
                   Continue as Guest
-                </button>
+                </button> */}
                 {isGuestLoading && <span className="loader small"></span>}
               </div>
               <p className="info">
-                Don't have an account? <Link href="/signup">Sign Up</Link>
+              {texts.signin.signup_q} <Link href="/signup">{texts.signin.signup}</Link>
               </p>
             </div>
           </>

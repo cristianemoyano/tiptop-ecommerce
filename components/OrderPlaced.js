@@ -2,6 +2,7 @@ import styled from 'styled-components';
 import Link from 'next/link';
 
 import { CheckIcon } from '../assets/icons';
+import { getText } from '../utils/getText';
 
 const Div = styled.div`
   flex: 1;
@@ -59,14 +60,15 @@ const Div = styled.div`
 `;
 
 const OrderPlaced = () => {
+  const texts = getText('es');
   return (
     <Div>
       <div className="round">
         <CheckIcon />
       </div>
-      <h2 className="title">Order placed successfully</h2>
-      <p className="text">Thank you for shopping with us</p>
-      <Link href="/collections">Continue Shopping</Link>
+      <h2 className="title">{texts.cart.success}</h2>
+      <p className="text">{texts.cart.thanks}</p>
+      <Link href="/collections">{texts.cart.continue}</Link>
     </Div>
   );
 };

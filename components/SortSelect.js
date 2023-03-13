@@ -2,11 +2,14 @@ import Select from 'react-select';
 import { useDispatch } from 'react-redux';
 
 import { filterActions } from '../store/filterSlice';
+import { getText } from '../utils/getText';
+
+const texts = getText('es')
 
 const options = [
-  { value: 'default', label: 'Default' },
-  { value: 'price_high_to_low', label: 'Price: High to Low' },
-  { value: 'price_low_to_high', label: 'Price: Low to High' },
+  { value: 'default', label: texts.products.default },
+  { value: 'price_high_to_low', label: texts.products.price_high_to_low },
+  { value: 'price_low_to_high', label: texts.products.price_low_to_high },
 ];
 
 const customStyles = {

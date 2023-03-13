@@ -15,6 +15,7 @@ import SizePickerForBottoms from '../../components/SizePickerForBottoms';
 import SizeChartForTops from '../../components/SizeChartForTops';
 import SizeChartForBottoms from '../../components/SizeChartForBottoms';
 import { CURRENCY, getFormattedCurrency } from '../../utils/getFormattedCurrency';
+import { getText } from '../../utils/getText';
 
 const MainNav = styled.div`
   font-size: 14px;
@@ -392,12 +393,14 @@ const ItemDetails = ({ id, imageURL, brand, category, name, amount }) => {
     }
   };
 
+  const texts = getText('es');
+
   return (
     <>
       <MainNav>
-        <Link href="/">Home</Link>
+        <Link href="/">{texts.home.title}</Link>
         {' / '}
-        <Link href="/collections">Collections</Link>
+        <Link href="/collections">{texts.products.collections}</Link>
         {' / '}
         <span>{` ${brand} ${name}`}</span>
       </MainNav>
@@ -419,12 +422,12 @@ const ItemDetails = ({ id, imageURL, brand, category, name, amount }) => {
             )}`}</div>
             <div className="size-box">
               <div className="head">
-                <div className="title">Select Size</div>
+                <div className="title">{texts.wishlist.selectSize}</div>
                 <div className="chart" onClick={openSizeChartHandler}>
-                  Size Chart
+                {texts.products.chartSize}
                 </div>
               </div>
-              {promptSize && <div className="error">Please select a size</div>}
+              {promptSize && <div className="error">{texts.wishlist.selectSize}</div>}
               <div className="sizes">
                 {category === 'Jeans' ? (
                   <SizePickerForBottoms
@@ -442,14 +445,14 @@ const ItemDetails = ({ id, imageURL, brand, category, name, amount }) => {
                 onClick={addToWishlistHandler}
                 disabled={isWishlisted}
               >
-                {isWishlisted ? 'Wishlisted' : 'Wishlist'}
+                {isWishlisted ? texts.wishlist.added : texts.wishlist.title}
               </button>
               <button
                 className="cart"
                 onClick={addToCartHandler}
                 disabled={isLoading}
               >
-                {isLoading ? <span className="loader"></span> : 'Add to Cart'}
+                {isLoading ? <span className="loader"></span> : texts.products.cart}
               </button>
             </div>
           </div>
@@ -458,7 +461,7 @@ const ItemDetails = ({ id, imageURL, brand, category, name, amount }) => {
       {showSizeChart && (
         <Modal closeHandler={closeSizeChartHandler}>
           <ModalDiv>
-            <div className="title">Size Chart</div>
+            <div className="title">{texts.products.chartSize}</div>
             <div className="table">
               {category === 'Jeans' ? (
                 <SizeChartForBottoms />

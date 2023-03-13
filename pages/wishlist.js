@@ -9,6 +9,7 @@ import SignInPromptTemplate from '../components/SignInPromptTemplate';
 import WishlistItemCard from '../components/WishlistItemCard';
 import getItemById from '../utils/getItemById';
 import { useSelector } from 'react-redux';
+import { getText } from '../utils/getText';
 
 const fade = keyframes`
   0% {
@@ -150,20 +151,22 @@ const Wishlist = () => {
     }
   }, [imageToBeNotified]);
 
+  const texts = getText('es')
+
   return (
     <>
       <Head>
-        <title>Wishlist</title>
+        <title>{texts.wishlist.title}</title>
       </Head>
       <MainNav>
-        <Link href="/">Home</Link> / <span>Wishlist</span>
+        <Link href="/">{texts.home.title}</Link> / <span>{texts.wishlist.title}</span>
       </MainNav>
       {!isLoading &&
         (user ? (
           clothes.length > 0 ? (
             <Div>
               <div className="title">
-                Wishlist <span>({clothes.length} items)</span>
+              {texts.wishlist.title} <span>({clothes.length} {texts.wishlist.items})</span>
               </div>
               <div className="clothes">
                 {clothes.map((item) => (
@@ -179,7 +182,7 @@ const Wishlist = () => {
             <EmptyWishlist />
           )
         ) : (
-          <SignInPromptTemplate type="wishlist" />
+          <SignInPromptTemplate type={texts.wishlist.title} />
         ))}
       <Notification
         className={`notification ${activateNotification ? 'activate' : ''}`}

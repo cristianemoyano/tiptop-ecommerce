@@ -13,6 +13,8 @@ import SmallSort from '../../components/SmallSort';
 import SmallFilter from '../../components/SmallFilter';
 import EmptyResults from '../../components/EmptyResults';
 
+import { getText } from '../../utils/getText';
+
 const MainNav = styled.div`
   font-size: 14px;
   background-color: #f4f4f4;
@@ -106,6 +108,8 @@ const Products = ({ clothes, brands, categories }) => {
   const filteredCategories = useSelector((state) => state.filter.categories);
   const filteredSort = useSelector((state) => state.filter.sort);
 
+  const texts = getText('es');
+
   let filteredClothes;
 
   filteredClothes =
@@ -138,22 +142,22 @@ const Products = ({ clothes, brands, categories }) => {
   return (
     <>
       <Head>
-        <title>Collections</title>
+        <title>{texts.products.collections}</title>
       </Head>
       <MainNav>
-        <Link href="/">Home</Link> / <span>Collections</span>
+        <Link href="/">{texts.products.home}</Link> / <span>{texts.products.collections}</span>
       </MainNav>
       <Div>
         {width > 640 && (
           <aside className="aside">
-            <div className="title">Filters</div>
+            <div className="title">{texts.products.filters}</div>
             <BrandFilter items={brands} />
             <CategoryFilter items={categories} />
           </aside>
         )}
         <main className="main">
           <div className="top">
-            <div className="title">Collections</div>
+            <div className="title">{texts.products.collections}</div>
             {width > 640 ? (
               <SortSelect />
             ) : (

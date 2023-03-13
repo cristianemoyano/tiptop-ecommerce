@@ -10,6 +10,7 @@ import { db } from '../services/firebase-config';
 import Modal from './Modal';
 import QuantityPicker from './QuantityPicker';
 import { getFormattedCurrency, CURRENCY } from '../utils/getFormattedCurrency';
+import { getText } from '../utils/getText';
 
 
 const Div = styled.div`
@@ -260,6 +261,8 @@ const CartItemCard = ({
       });
   };
 
+  const texts = getText('es');
+
   return (
     <>
       <Div>
@@ -276,9 +279,9 @@ const CartItemCard = ({
             <div className="brand">{brand}</div>
             <div className="name">{name}</div>
             <div className="actions">
-              <button>Size: {size}</button>
+              <button>{texts.cart.size}: {size}</button>
               <button className="quantity" onClick={openQuantityPickerHandler}>
-                <span>Quantity: {currentQuantity}</span>
+                <span>{texts.cart.qty}: {currentQuantity}</span>
                 <ChevronDownIcon />
               </button>
             </div>

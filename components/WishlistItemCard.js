@@ -11,6 +11,7 @@ import Modal from './Modal';
 import SizePickerForBottoms from './SizePickerForBottoms';
 import SizePickerForTops from './SizePickerForTops';
 import { getFormattedCurrency, CURRENCY } from '../utils/getFormattedCurrency';
+import { getText } from '../utils/getText';
 
 const Div = styled.div`
   font-size: 14px;
@@ -275,6 +276,8 @@ const WishlistItemCard = ({
     }
   };
 
+  const texts = getText('es');
+
   return (
     <>
       <Div>
@@ -299,14 +302,14 @@ const WishlistItemCard = ({
           </div>
         </div>
         <button className="cart" onClick={moveToCartHandler}>
-          Move to Cart
+          {texts.wishlist.moveToCart}
         </button>
       </Div>
       {showSizePicker && (
         <Modal closeHandler={closeSizePickerHandler}>
           <ModalDiv>
-            <div className="title">Select size</div>
-            {promptSize && <div className="error">Please select a size</div>}
+            <div className="title"> {texts.wishlist.selectSize}</div>
+            {promptSize && <div className="error">{texts.wishlist.selectSize}</div>}
             <div className="sizes">
               {category === 'Jeans' ? (
                 <SizePickerForBottoms
@@ -324,7 +327,7 @@ const WishlistItemCard = ({
               className="done"
               onClick={moveToCartHandler.bind(this, true)}
             >
-              Done
+              {texts.wishlist.done}
             </button>
           </ModalDiv>
         </Modal>

@@ -2,6 +2,7 @@ import styled from 'styled-components';
 import { useSelector } from 'react-redux';
 import OutsideClickHandler from 'react-outside-click-handler';
 import { useRouter } from 'next/router';
+import { getText } from '../utils/getText';
 
 const Div = styled.div`
   border: 1px #eee solid;
@@ -77,38 +78,39 @@ const Menu = ({ onClose, onSignOut }) => {
     onClose();
   };
 
+  const texts = getText('es');
+
   return (
     <Div>
       <OutsideClickHandler onOutsideClick={onClose}>
         <div className="special">
           {user ? (
             <>
-              <p>Hello</p>
+              <p>{texts.menu.hello}</p>
               <p>{user.email}</p>
             </>
           ) : (
             <>
-              <p>Welcome</p>
-              <p>To access wishlist or cart</p>
+              <p>{texts.menu.welcome}</p>
               <div className="sign" onClick={signInHandler}>
-                Sign In
+              {texts.menu.login}
               </div>
             </>
           )}
         </div>
         <div className="divider"></div>
         <div className="item" onClick={collectionsHandler}>
-          Collections
+        {texts.menu.collections}
         </div>
         <div className="item" onClick={wishlistHandler}>
-          Wishlist
+        {texts.menu.wishlist}
         </div>
         <div className="item" onClick={cartHandler}>
-          Cart
+        {texts.menu.cart}
         </div>
         {user && (
           <div className="item" onClick={onSignOut}>
-            Sign Out
+             {texts.menu.logout}
           </div>
         )}
       </OutsideClickHandler>
