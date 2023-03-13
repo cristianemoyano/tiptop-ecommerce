@@ -290,7 +290,7 @@ const ModalDiv = styled.div`
   }
 `;
 
-const ItemDetails = ({ id, imageURL, brand, category, name, amount }) => {
+const ItemDetails = ({ id, imageURL, brand, category, name, amount, stock, sizes }) => {
   const [size, setSize] = useState('');
   const [showSizeChart, setShowSizeChart] = useState(false);
   const [promptSize, setPromptSize] = useState(false);
@@ -417,6 +417,7 @@ const ItemDetails = ({ id, imageURL, brand, category, name, amount }) => {
           <div className="info">
             <div className="brand">{brand}</div>
             <div className="name">{name}</div>
+            <div className="name">Stock: {stock}</div>
             <div className="amount">{`${CURRENCY} ${getFormattedCurrency(
               amount
             )}`}</div>
@@ -433,9 +434,10 @@ const ItemDetails = ({ id, imageURL, brand, category, name, amount }) => {
                   <SizePickerForBottoms
                     currentSize={size}
                     onSetSize={setSize}
+                    sizes={sizes}
                   />
                 ) : (
-                  <SizePickerForTops currentSize={size} onSetSize={setSize} />
+                  <SizePickerForTops currentSize={size} sizes={sizes} onSetSize={setSize} />
                 )}
               </div>
             </div>

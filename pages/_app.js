@@ -5,6 +5,7 @@ import Head from 'next/head';
 import store from '../store';
 import NavBar from '../components/NavBar';
 import ReactReduxFirebaseWrapper from '../components/ReactReduxFirebaseProvider';
+import { getText } from '../utils/getText';
 
 const GlobalStyle = createGlobalStyle`
   * {
@@ -34,10 +35,11 @@ const Container = styled.div`
 `;
 
 const MyApp = ({ Component, pageProps }) => {
+  const texts = getText('es')
   return (
     <>
       <Head>
-        <title>Feria</title>
+        <title>{texts.products.appName}</title>
       </Head>
       <GlobalStyle />
       <Container>

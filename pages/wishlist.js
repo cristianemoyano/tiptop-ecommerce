@@ -196,7 +196,7 @@ const Wishlist = () => {
             priority
           />
         )}
-        <p>Item added to cart successfully</p>
+        <p>Producto agregado a la carta con éxito.</p>
       </Notification>
     </>
   );

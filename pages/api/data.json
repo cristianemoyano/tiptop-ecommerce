@@ -6,7 +6,9 @@
       "brand": "American Eagle",
       "category": "Shirts",
       "name": "White Poplin Shirt",
-      "amount": "2590"
+      "amount": "2590",
+      "stock": 1,
+      "sizes": ["32"]
     },
     {
       "id": "2402",
@@ -14,7 +16,9 @@
       "brand": "American Eagle",
       "category": "Shirts",
       "name": "Burgandy Flannel Shirt",
-      "amount": "2340"
+      "amount": "2340",
+      "stock": 1,
+      "sizes": ["32"]
     },
     {
       "id": "2403",
@@ -22,7 +26,9 @@
       "brand": "American Eagle",
       "category": "Shirts",
       "name": "Red Flannel Shirt",
-      "amount": "2390"
+      "amount": "2390",
+      "stock": 1,
+      "sizes": ["32"]
     },
     {
       "id": "2404",
@@ -30,7 +36,9 @@
       "brand": "American Eagle",
       "category": "Shirts",
       "name": "Green Flannel Shirt",
-      "amount": "2120"
+      "amount": "2120",
+      "stock": 1,
+      "sizes": ["32"]
     },
     {
       "id": "2405",
@@ -38,7 +46,9 @@
       "brand": "American Eagle",
       "category": "Shirts",
       "name": "Blue Oxford Shirt",
-      "amount": "1970"
+      "amount": "1970",
+      "stock": 1,
+      "sizes": ["32"]
     },
     {
       "id": "2406",
@@ -46,7 +56,9 @@
       "brand": "American Eagle",
       "category": "Hoodies",
       "name": "Green Utility Hoodie",
-      "amount": "2800"
+      "amount": "2800",
+      "stock": 1,
+      "sizes": ["32"]
     },
     {
       "id": "2407",
@@ -54,7 +66,9 @@
       "brand": "American Eagle",
       "category": "Hoodies",
       "name": "White Utility Hoodie",
-      "amount": "2600"
+      "amount": "2600",
+      "stock": 1,
+      "sizes": ["32"]
     },
     {
       "id": "2408",
@@ -62,7 +76,9 @@
       "brand": "American Eagle",
       "category": "Hoodies",
       "name": "Gray Active Hoodie",
-      "amount": "2700"
+      "amount": "2700",
+      "stock": 1,
+      "sizes": ["32"]
     },
     {
       "id": "2409",
@@ -70,7 +86,9 @@
       "brand": "American Eagle",
       "category": "Hoodies",
       "name": "Green Active Camo Hoodie",
-      "amount": "3100"
+      "amount": "3100",
+      "stock": 1,
+      "sizes": ["32"]
     },
     {
       "id": "2410",
@@ -78,7 +96,9 @@
       "brand": "American Eagle",
       "category": "Polos",
       "name": "Burgundy Flex Polo",
-      "amount": "950"
+      "amount": "950",
+      "stock": 1,
+      "sizes": ["32"]
     },
     {
       "id": "2411",
@@ -86,7 +106,9 @@
       "brand": "American Eagle",
       "category": "Jeans",
       "name": "Blue Skinny Jeans",
-      "amount": "2600"
+      "amount": "2600",
+      "stock": 1,
+      "sizes": ["32"]
     },
     {
       "id": "2412",
@@ -94,7 +116,9 @@
       "brand": "American Eagle",
       "category": "Jeans",
       "name": "Blue Distressed Jeans",
-      "amount": "2600"
+      "amount": "2600",
+      "stock": 1,
+      "sizes": ["32"]
     },
     {
       "id": "2413",
@@ -102,7 +126,9 @@
       "brand": "American Eagle",
       "category": "Jeans",
       "name": "Black Knee Slash Jeans",
-      "amount": "2600"
+      "amount": "2600",
+      "stock": 1,
+      "sizes": ["32"]
     },
     {
       "id": "2414",
@@ -110,7 +136,9 @@
       "brand": "American Eagle",
       "category": "Jeans",
       "name": "White Knee Slash Jeans",
-      "amount": "2500"
+      "amount": "2500",
+      "stock": 1,
+      "sizes": ["32"]
     },
     {
       "id": "2415",
@@ -118,7 +146,9 @@
       "brand": "American Eagle",
       "category": "Jeans",
       "name": "Khaki Slim Jeans",
-      "amount": "2200"
+      "amount": "2200",
+      "stock": 1,
+      "sizes": ["32"]
     },
     {
       "id": "2416",
@@ -126,7 +156,9 @@
       "brand": "Hollister",
       "category": "Shirts",
       "name": "Navy Oxford Shirt",
-      "amount": "2250"
+      "amount": "2250",
+      "stock": 1,
+      "sizes": ["32"]
     },
     {
       "id": "2417",
@@ -134,7 +166,9 @@
       "brand": "Hollister",
       "category": "Shirts",
       "name": "White Oxford Shirt",
-      "amount": "2300"
+      "amount": "2300",
+      "stock": 1,
+      "sizes": ["32"]
     },
     {
       "id": "2418",
@@ -142,7 +176,9 @@
       "brand": "Hollister",
       "category": "Shirts",
       "name": "Blue Poplin Shirt",
-      "amount": "2200"
+      "amount": "2200",
+      "stock": 1,
+      "sizes": ["32"]
     },
     {
       "id": "2419",
@@ -150,7 +186,9 @@
       "brand": "Hollister",
       "category": "Shirts",
       "name": "Red Poplin Shirt",
-      "amount": "2200"
+      "amount": "2200",
+      "stock": 1,
+      "sizes": ["32"]
     },
     {
       "id": "2420",
@@ -158,7 +196,9 @@
       "brand": "Hollister",
       "category": "Shirts",
       "name": "White Pattern Shirt",
-      "amount": "1450"
+      "amount": "1450",
+      "stock": 1,
+      "sizes": ["32"]
     },
     {
       "id": "2421",
@@ -166,7 +206,9 @@
       "brand": "Hollister",
       "category": "Hoodies",
       "name": "Gray Colorblock Hoodie",
-      "amount": "2400"
+      "amount": "2400",
+      "stock": 1,
+      "sizes": ["32"]
     },
     {
       "id": "2422",
@@ -174,7 +216,9 @@
       "brand": "Hollister",
       "category": "Hoodies",
       "name": "Pink Icon Hoodie",
-      "amount": "2300"
+      "amount": "2300",
+      "stock": 1,
+      "sizes": ["32"]
     },
     {
       "id": "2423",
@@ -182,7 +226,9 @@
       "brand": "Hollister",
       "category": "Hoodies",
       "name": "Navy Tie-Dye Icon Hoodie",
-      "amount": "2550"
+      "amount": "2550",
+      "stock": 1,
+      "sizes": ["32"]
     },
     {
       "id": "2424",
@@ -190,7 +236,9 @@
       "brand": "Hollister",
       "category": "Hoodies",
       "name": "Navy Colorblock Hoodie",
-      "amount": "2100"
+      "amount": "2100",
+      "stock": 1,
+      "sizes": ["32"]
     },
     {
       "id": "2425",
@@ -198,7 +246,9 @@
       "brand": "Hollister",
       "category": "Polos",
       "name": "Burgundy Icon Polo",
-      "amount": "1150"
+      "amount": "1150",
+      "stock": 1,
+      "sizes": ["32"]
     },
     {
       "id": "2426",
@@ -206,7 +256,9 @@
       "brand": "Hollister",
       "category": "Polos",
       "name": "Black Mint Icon Polo",
-      "amount": "1250"
+      "amount": "1250",
+      "stock": 1,
+      "sizes": ["32"]
     },
     {
       "id": "2427",
@@ -214,7 +266,9 @@
       "brand": "Hollister",
       "category": "Polos",
       "name": "Pink Icon Polo",
-      "amount": "1400"
+      "amount": "1400",
+      "stock": 1,
+      "sizes": ["32"]
     },
     {
       "id": "2428",
@@ -222,7 +276,9 @@
       "brand": "Hollister",
       "category": "Jeans",
       "name": "Black Skinny Jeans",
-      "amount": "2600"
+      "amount": "2600",
+      "stock": 1,
+      "sizes": ["32"]
     },
     {
       "id": "2429",
@@ -230,7 +286,9 @@
       "brand": "Hollister",
       "category": "Jeans",
       "name": "Light Wash Skinny Jeans",
-      "amount": "2500"
+      "amount": "2500",
+      "stock": 1,
+      "sizes": ["32"]
     },
     {
       "id": "2430",
@@ -238,7 +296,9 @@
       "brand": "Hollister",
       "category": "Jeans",
       "name": "Wash Skinny Jeans",
-      "amount": "2950"
+      "amount": "2950",
+      "stock": 1,
+      "sizes": ["32"]
     },
     {
       "id": "2431",
@@ -246,7 +306,9 @@
       "brand": "Pull & Bear",
       "category": "Shirts",
       "name": "Basic Check Shirt",
-      "amount": "2900"
+      "amount": "2900",
+      "stock": 1,
+      "sizes": ["32"]
     },
     {
       "id": "2432",
@@ -254,7 +316,9 @@
       "brand": "Pull & Bear",
       "category": "Shirts",
       "name": "Basic Twill Shirt",
-      "amount": "2700"
+      "amount": "2700",
+      "stock": 1,
+      "sizes": ["32"]
     },
     {
       "id": "2433",
@@ -262,7 +326,9 @@
       "brand": "Pull & Bear",
       "category": "Shirts",
       "name": "Striped Denim Shirt",
-      "amount": "3120"
+      "amount": "3120",
+      "stock": 1,
+      "sizes": ["32"]
     },
     {
       "id": "2434",
@@ -270,7 +336,9 @@
       "brand": "Pull & Bear",
       "category": "Hoodies",
       "name": "Sky Blue Hoodie",
-      "amount": "2300"
+      "amount": "2300",
+      "stock": 1,
+      "sizes": ["32"]
     },
     {
       "id": "2435",
@@ -278,7 +346,9 @@
       "brand": "Pull & Bear",
       "category": "Hoodies",
       "name": "Printed Hoodie",
-      "amount": "2830"
+      "amount": "2830",
+      "stock": 1,
+      "sizes": ["32"]
     },
     {
       "id": "2436",
@@ -286,7 +356,9 @@
       "brand": "Pull & Bear",
       "category": "Hoodies",
       "name": "Slogan Hoodie",
-      "amount": "2490"
+      "amount": "2490",
+      "stock": 1,
+      "sizes": ["32"]
     },
     {
       "id": "2437",
@@ -294,7 +366,9 @@
       "brand": "Pull & Bear",
       "category": "Jeans",
       "name": "Blue Ripped Jeans",
-      "amount": "2870"
+      "amount": "2870",
+      "stock": 1,
+      "sizes": ["32"]
     },
     {
       "id": "2438",
@@ -302,7 +376,9 @@
       "brand": "Pull & Bear",
       "category": "Jeans",
       "name": "Black Ripped Jeans",
-      "amount": "2930"
+      "amount": "2930",
+      "stock": 1,
+      "sizes": ["32"]
     },
     {
       "id": "2439",
@@ -310,7 +386,9 @@
       "brand": "Pull & Bear",
       "category": "Jeans",
       "name": "Blue Bleached Jeans",
-      "amount": "2600"
+      "amount": "2600",
+      "stock": 1,
+      "sizes": ["32"]
     },
     {
       "id": "2440",
@@ -318,7 +396,9 @@
       "brand": "Pull & Bear",
       "category": "Jeans",
       "name": "Grey Skinny Jeans",
-      "amount": "2700"
+      "amount": "2700",
+      "stock": 1,
+      "sizes": ["32"]
     },
     {
       "id": "2441",
@@ -326,7 +406,9 @@
       "brand": "Zara",
       "category": "Shirts",
       "name": "Abstract Print Shirt",
-      "amount": "2490"
+      "amount": "2490",
+      "stock": 1,
+      "sizes": ["32"]
     },
     {
       "id": "2442",
@@ -334,7 +416,9 @@
       "brand": "Zara",
       "category": "Shirts",
       "name": "Abstract Print Shirt",
-      "amount": "2370"
+      "amount": "2370",
+      "stock": 1,
+      "sizes": ["32"]
     },
     {
       "id": "2443",
@@ -342,7 +426,9 @@
       "brand": "Zara",
       "category": "Shirts",
       "name": "Geometric Print Shirt",
-      "amount": "2640"
+      "amount": "2640",
+      "stock": 1,
+      "sizes": ["32"]
     },
     {
       "id": "2444",
@@ -350,7 +436,9 @@
       "brand": "Zara",
       "category": "Shirts",
       "name": "Geometric Shirt",
-      "amount": "2900"
+      "amount": "2900",
+      "stock": 1,
+      "sizes": ["32"]
     },
     {
       "id": "2445",
@@ -358,7 +446,9 @@
       "brand": "Zara",
       "category": "Shirts",
       "name": "Stiped Print Shirt",
-      "amount": "2190"
+      "amount": "2190",
+      "stock": 1,
+      "sizes": ["32"]
     },
     {
       "id": "2446",
@@ -366,7 +456,9 @@
       "brand": "Zara",
       "category": "Shirts",
       "name": "Striped Textured Shirt",
-      "amount": "2780"
+      "amount": "2780",
+      "stock": 1,
+      "sizes": ["32"]
     },
     {
       "id": "2447",
@@ -374,7 +466,9 @@
       "brand": "Zara",
       "category": "Jeans",
       "name": "Blue Ripped Jeans",
-      "amount": "3200"
+      "amount": "3200",
+      "stock": 1,
+      "sizes": ["32"]
     },
     {
       "id": "2448",
@@ -382,7 +476,9 @@
       "brand": "Zara",
       "category": "Jeans",
       "name": "Grey Cropped Jeans",
-      "amount": "3450"
+      "amount": "3450",
+      "stock": 1,
+      "sizes": ["32"]
     },
     {
       "id": "2449",
@@ -390,7 +486,9 @@
       "brand": "Zara",
       "category": "Jeans",
       "name": "Paint Splatter Jeans",
-      "amount": "4200"
+      "amount": "4200",
+      "stock": 1,
+      "sizes": ["32"]
     },
     {
       "id": "2450",
@@ -398,7 +496,9 @@
       "brand": "Zara",
       "category": "Jeans",
       "name": "Blue Ripped Jeans",
-      "amount": "3350"
+      "amount": "3350",
+      "stock": 1,
+      "sizes": ["32"]
     }
   ]
 }

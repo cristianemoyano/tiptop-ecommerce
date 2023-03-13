@@ -299,7 +299,7 @@ const CartItemCard = ({
       {showQuantityPicker && (
         <Modal closeHandler={closeQuantityPickerHandler}>
           <ModalDiv>
-            <div className="title">Select Quantity</div>
+            <div className="title">Seleccionar Cantidad</div>
             <div className="quantities">
               <QuantityPicker
                 currentQuantity={currentQuantity}

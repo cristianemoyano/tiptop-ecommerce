@@ -31,7 +31,7 @@ const Div = styled.div`
   }
 `;
 
-const ItemCard = ({ id, imageURL, brand, name, amount, setPriority }) => {
+const ItemCard = ({ id, imageURL, brand, name, amount, setPriority, stock }) => {
   return (
     <Div>
       <BetterLink href={`/collections/${id}`}>
@@ -45,6 +45,7 @@ const ItemCard = ({ id, imageURL, brand, name, amount, setPriority }) => {
         <div className="info">
           <div className="brand">{brand}</div>
           <div className="name">{name}</div>
+          <div className="name">Stock: {stock}</div>
           <div className="amount">{`${CURRENCY} ${getFormattedCurrency(amount)}`}</div>
         </div>
       </BetterLink>

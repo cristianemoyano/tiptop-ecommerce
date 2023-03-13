@@ -1,30 +1,18 @@
-const SizePickerForTops = ({ currentSize, onSetSize }) => {
+const SizePickerForTops = ({ currentSize, onSetSize, sizes }) => {
+
+  const sizeComponent = sizes.map((value, index) => (
+    <button
+    className={currentSize === value ? 'active' : ''}
+    onClick={() => onSetSize(value)}
+    key={index}
+  >
+    {value}
+  </button>
+  ));
+
   return (
     <>
-      <button
-        className={currentSize === 'S' ? 'active' : ''}
-        onClick={() => onSetSize('S')}
-      >
-        S
-      </button>
-      <button
-        className={currentSize === 'M' ? 'active' : ''}
-        onClick={() => onSetSize('M')}
-      >
-        M
-      </button>
-      <button
-        className={currentSize === 'L' ? 'active' : ''}
-        onClick={() => onSetSize('L')}
-      >
-        L
-      </button>
-      <button
-        className={currentSize === 'XL' ? 'active' : ''}
-        onClick={() => onSetSize('XL')}
-      >
-        XL
-      </button>
+     {sizeComponent}
     </>
   );
 };
