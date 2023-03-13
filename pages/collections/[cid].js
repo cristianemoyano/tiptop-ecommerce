@@ -4,7 +4,7 @@ import Image from 'next/image';
 import { useRouter } from 'next/router';
 import styled, { keyframes } from 'styled-components';
 import { useSelector } from 'react-redux';
-import { doc, updateDoc, arrayUnion } from 'firebase/firestore';
+import { doc, collection, updateDoc, arrayUnion, addDoc, setDoc } from 'firebase/firestore';
 
 import getAllStaticPaths from '../../utils/getAllStaticPaths';
 import getItemById from '../../utils/getItemById';
@@ -14,7 +14,7 @@ import SizePickerForTops from '../../components/SizePickerForTops';
 import SizePickerForBottoms from '../../components/SizePickerForBottoms';
 import SizeChartForTops from '../../components/SizeChartForTops';
 import SizeChartForBottoms from '../../components/SizeChartForBottoms';
-import { getFormattedCurrency } from '../../utils/getFormattedCurrency';
+import { CURRENCY, getFormattedCurrency } from '../../utils/getFormattedCurrency';
 
 const MainNav = styled.div`
   font-size: 14px;
@@ -319,7 +319,7 @@ const ItemDetails = ({ id, imageURL, brand, category, name, amount }) => {
 
   const addToWishlistHandler = () => {
     if (user) {
-      updateDoc(doc(db, user.uid, 'wishlist'), {
+      setDoc(doc(db, user.uid, 'wishlist'), {
         items: arrayUnion({
           itemId: id,
           itemSize: size || null,
@@ -353,14 +353,33 @@ const ItemDetails = ({ id, imageURL, brand, category, name, amount }) => {
               setIsLoading(false);
             });
         } else {
-          updateDoc(doc(db, user.uid, 'cart'), {
+          const docRef = doc(db, user.uid, 'cart')
+          updateDoc(docRef, {
             items: arrayUnion({
               itemId: id,
               itemSize: size,
               itemQuantity: '1',
             }),
-          })
-            .catch((error) => console.log(error))
+          }).then(
+            () => {
+              console.log('Added')
+            }
+          )
+            .catch(
+              (error) => {
+                if (error.code === 'not-found') {
+                  const docRef = doc(db, user.uid, 'cart')
+                  setDoc(docRef, {
+                    items: arrayUnion({
+                      itemId: id,
+                      itemSize: size,
+                      itemQuantity: '1',
+                    }),
+                  })
+                }
+                console.log(error)
+            }
+            )
             .finally(() => {
               setIsLoading(false);
             });
@@ -395,7 +414,7 @@ const ItemDetails = ({ id, imageURL, brand, category, name, amount }) => {
           <div className="info">
             <div className="brand">{brand}</div>
             <div className="name">{name}</div>
-            <div className="amount">{`Rs. ${getFormattedCurrency(
+            <div className="amount">{`${CURRENCY} ${getFormattedCurrency(
               amount
             )}`}</div>
             <div className="size-box">

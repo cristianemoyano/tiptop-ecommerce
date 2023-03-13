@@ -3,6 +3,7 @@ import { useDispatch } from 'react-redux';
 import { onAuthStateChanged } from 'firebase/auth';
 import { doc, onSnapshot } from 'firebase/firestore';
 
+
 import { auth } from '../services/firebase-config';
 import { authActions } from '../store/authSlice';
 import { wishlistActions } from '../store/wishlistSlice';
@@ -17,6 +18,7 @@ const ReactReduxFirebaseWrapper = ({ children }) => {
   const subscriptions = [];
 
   useEffect(() => {
+
     const authSub = onAuthStateChanged(
       auth,
       (user) => {
@@ -35,7 +37,17 @@ const ReactReduxFirebaseWrapper = ({ children }) => {
                 const items = document.data().items;
                 dispatch(wishlistActions.setItems(items));
 
-                const cartSub = onSnapshot(
+
+              } catch (error) {
+                setIsLoading(false);
+              }
+            },
+            (error) => {
+              setIsLoading(false);
+            }
+          );
+
+                          const cartSub = onSnapshot(
                   doc(db, user.uid, 'cart'),
                   (document) => {
                     try {
@@ -52,14 +64,6 @@ const ReactReduxFirebaseWrapper = ({ children }) => {
                 );
 
                 subscriptions.push(cartSub);
-              } catch (error) {
-                setIsLoading(false);
-              }
-            },
-            (error) => {
-              setIsLoading(false);
-            }
-          );
 
           subscriptions.push(wishlistSub);
         } else {

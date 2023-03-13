@@ -9,7 +9,8 @@ import { ChevronDownIcon, CloseIcon } from '../assets/icons';
 import { db } from '../services/firebase-config';
 import Modal from './Modal';
 import QuantityPicker from './QuantityPicker';
-import { getFormattedCurrency } from '../utils/getFormattedCurrency';
+import { getFormattedCurrency, CURRENCY } from '../utils/getFormattedCurrency';
+
 
 const Div = styled.div`
   font-size: 14px;
@@ -284,7 +285,7 @@ const CartItemCard = ({
             <div className="amount">
               <span>{quantity}</span>
               <CloseIcon />
-              <span>{`Rs. ${getFormattedCurrency(amount)}`}</span>
+              <span>{`${CURRENCY} ${getFormattedCurrency(amount)}`}</span>
             </div>
           </div>
           <button className="delete" onClick={removeItemHandler}>

@@ -13,6 +13,8 @@ import getItemById from '../utils/getItemById';
 import OrderPlaced from '../components/OrderPlaced';
 import { db } from '../services/firebase-config';
 
+import { CURRENCY } from '../utils/getFormattedCurrency';
+
 const MainNav = styled.div`
   font-size: 14px;
   background-color: #f4f4f4;
@@ -176,9 +178,21 @@ const Cart = () => {
 
   const placeOrderHandler = () => {
     setIsPlacingOrder(true);
+    const items = cartItems.map((item) => {
+      const itemDetails = getItemById(item.itemId);
+      return {
+        size: item.itemSize,
+        quantity: item.itemQuantity,
+        ...itemDetails,
+      };
+    });
     addDoc(collection(db, 'orders'), {
-      items: cartItems,
+      items: items,
       totalPrice: totalValue,
+      user: {
+        email: user.email,
+        uid: user.uid,
+      },
     }).then(() => {
       setIsOrderPlaced(true);
 
@@ -221,11 +235,11 @@ const Cart = () => {
                 <div className="basic">
                   <div className="price">
                     <div className="title">Price</div>
-                    <div className="amount">Rs. {priceValue}</div>
+                    <div className="amount">{CURRENCY} {priceValue}</div>
                   </div>
                   <div className="discount">
                     <div className="title">Discount</div>
-                    <div className="amount">- Rs. {discountValue}</div>
+                    <div className="amount">- {CURRENCY} {discountValue}</div>
                   </div>
                   <div className="shipping">
                     <div className="title">Shipping</div>
@@ -235,7 +249,7 @@ const Cart = () => {
                 <div className="total">
                   <div className="final">
                     <div className="title">Total Amount</div>
-                    <div className="amount">Rs. {totalValue}</div>
+                    <div className="amount">{CURRENCY} {totalValue}</div>
                   </div>
                   <button
                     className="order"
