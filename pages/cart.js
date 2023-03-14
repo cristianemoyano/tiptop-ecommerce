@@ -221,6 +221,7 @@ const Cart = () => {
         email: user.email,
         uid: user.uid,
       },
+      createdAt: String(new Date()),
     }).then(() => {
       setIsOrderPlaced(true);
 
