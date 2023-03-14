@@ -7,7 +7,7 @@ import Image from 'next/image';
 import EmptyWishlist from '../components/EmptyWishlist';
 import SignInPromptTemplate from '../components/SignInPromptTemplate';
 import WishlistItemCard from '../components/WishlistItemCard';
-import getItemById from '../utils/getItemById';
+import {getItemByIds} from '../utils/getItemById';
 import { useSelector } from 'react-redux';
 import { getText } from '../utils/getText';
 
@@ -131,15 +131,29 @@ const Wishlist = () => {
   const wishlistItems = useSelector((state) => state.wishlist.items);
 
   useEffect(() => {
-    const items = wishlistItems.map((item) => {
-      const itemDetails = getItemById(item.itemId);
-      return { size: item.itemSize, ...itemDetails };
+    const producIds = wishlistItems.map((item) => {
+      return item.itemId;
     });
 
-    setClothes(() => {
-      setIsLoading(false);
-      return items;
-    });
+    const onGetItems = (itemDetails) => {
+
+      const items = wishlistItems.map((item) => {
+        const detail = itemDetails.find(
+          (detail) => detail.id === item.itemId
+        );
+        return { size: item.itemSize, ...detail};
+      });
+
+      setClothes(() => {
+        setIsLoading(false);
+        return items;
+      });
+
+    }
+  
+    getItemByIds(producIds, onGetItems)
+
+   
   }, [wishlistItems]);
 
   useEffect(() => {
@@ -193,6 +207,7 @@ const Wishlist = () => {
             width={33}
             height={41}
             layout="fixed"
+            alt="product"
             priority
           />
         )}

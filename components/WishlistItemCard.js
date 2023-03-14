@@ -78,6 +78,19 @@ const Div = styled.div`
     padding: 8px;
     width: 100%;
   }
+
+  .cart-disabled {
+    font: inherit;
+    font-weight: 500;
+    color: gray;
+    display: block;
+    outline: none;
+    cursor: pointer;
+    border: none;
+    border-top: 1px #eee solid;
+    padding: 8px;
+    width: 100%;
+  }
 `;
 
 const ModalDiv = styled.div`
@@ -162,6 +175,7 @@ const WishlistItemCard = ({
   amount,
   category,
   setImage,
+  stock,
   sizes
 }) => {
   const [pickedSize, setPickedSize] = useState('');
@@ -176,6 +190,7 @@ const WishlistItemCard = ({
     (item) => item.itemId === id && item.itemSize === size
   );
   const isInCart = !!cartItem;
+  const isOutStock = Number(stock) <= 0;
 
   const openSizePickerHandler = () => {
     setShowSizePicker(true);
@@ -204,10 +219,14 @@ const WishlistItemCard = ({
   };
 
   const moveToCartHandler = (ev, fromModal = false) => {
+
+    if (isOutStock) {
+      alert('Éste producto no tiene stock')
+      return
+    }
   
     if (size) {
       if (isInCart) {
-
         alert('Éste producto ya se encuentra en tu carrito y la cantidad máxima es 1')
         return
 
@@ -305,12 +324,13 @@ const WishlistItemCard = ({
           <div className="info">
             <div className="brand">{brand}</div>
             <div className="name">{name}</div>
+            <div className="name">Stock: {stock}</div>
             <div className="amount">{`${CURRENCY} ${getFormattedCurrency(
               amount
             )}`}</div>
           </div>
         </div>
-        <button className="cart" onClick={moveToCartHandler}>
+        <button className={isOutStock? 'cart-disabled' : 'cart'} onClick={moveToCartHandler} disabled={isOutStock}>
           {texts.wishlist.moveToCart}
         </button>
       </Div>

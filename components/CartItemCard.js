@@ -19,6 +19,106 @@ const Div = styled.div`
   width: 420px;
   margin-bottom: 16px;
 
+  .stock-msg {
+    color: red;
+  }
+
+  .item-disabled {
+    display: flex;
+    align-items: center;
+    position: relative;
+    border: 1px red solid;
+
+    a {
+      text-decoration: none;
+      color: inherit;
+      display: block;
+      width: 110px;
+    }
+
+    .info {
+      padding: 8px;
+
+      .brand {
+        font-weight: 500;
+      }
+
+      .name {
+        color: #777;
+        margin-top: 8px;
+      }
+
+      .actions {
+        margin: 16px 0;
+        display: flex;
+
+        button {
+          background-color: #eee;
+          font: inherit;
+          font-size: 13px;
+          font-weight: 500;
+          padding: 3px 12px;
+          border: none;
+          border-radius: 4px;
+          outline: none;
+
+          &:first-child {
+            margin-right: 8px;
+          }
+
+          &.quantity {
+            cursor: pointer;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 3px 3px 3px 12px;
+
+            .icon {
+              margin-left: 3px;
+              width: 14px;
+              height: 14px;
+              stroke-width: 2;
+            }
+          }
+        }
+      }
+
+      .amount {
+        font-weight: 500;
+        display: flex;
+        align-items: center;
+
+        .icon {
+          width: 14px;
+          height: 14px;
+          margin: 2px 4px 0 4px;
+          stroke-width: 2px;
+        }
+      }
+    }
+
+    .delete {
+      border: none;
+      border-radius: 50%;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      padding: 2px;
+      position: absolute;
+      top: 8px;
+      right: 8px;
+      z-index: 5;
+      background-color: white;
+      cursor: pointer;
+
+      .icon {
+        width: 16px;
+        height: 16px;
+        stroke-width: 2px;
+      }
+    }
+  }
+
   .item {
     display: flex;
     align-items: center;
@@ -195,6 +295,7 @@ const CartItemCard = ({
   brand,
   name,
   amount,
+  stock,
   quantity,
 }) => {
   const [showQuantityPicker, setShowQuantityPicker] = useState(false);
@@ -202,24 +303,8 @@ const CartItemCard = ({
   const user = useSelector((state) => state.auth.user);
   const cartItems = useSelector((state) => state.cart.items);
 
-  // useEffect(() => {
-  //   const item = cartItems.find((item) => item.itemId === id);
-  //   const updatedItem = {
-  //     ...item,
-  //     itemQuantity: currentQuantity,
-  //   };
-  //   const updatedItems = [...cartItems];
-  //   updatedItems.splice(index, 1, updatedItem);
-  //   updateDoc(doc(db, user.uid, 'cart'), {
-  //     items: updatedItems,
-  //   })
-  //     .then(() => {
-  //       console.log('cart.js // 216');
-  //     })
-  //     .catch((error) => {
-  //       console.log(error);
-  //     });
-  // }, [currentQuantity]);
+  const isOutStock = Number(stock) <= 0;
+
 
   const removeItemHandler = () => {
     updateDoc(doc(db, user.uid, 'cart'), {
@@ -266,7 +351,7 @@ const CartItemCard = ({
   return (
     <>
       <Div>
-        <div className="item">
+        <div className={isOutStock ? 'item-disabled' : 'item'}>
           <BetterLink href={`/collections/${id}`}>
             <Image
               src={imageURL}
@@ -278,6 +363,8 @@ const CartItemCard = ({
           <div className="info">
             <div className="brand">{brand}</div>
             <div className="name">{name}</div>
+            <div className="name">Stock: {stock}</div>
+            <div className="stock-msg">{isOutStock ? 'Producto no disponible' : ''}</div>
             <div className="actions">
               <button>{texts.cart.size}: {size}</button>
               <button className="quantity" onClick={openQuantityPickerHandler}>

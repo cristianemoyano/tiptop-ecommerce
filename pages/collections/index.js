@@ -4,9 +4,6 @@ import Head from 'next/head';
 import { useSelector } from 'react-redux';
 import styled from 'styled-components';
 
-import { db } from '../../services/firebase-config';
-import { collection, getDocs } from 'firebase/firestore';
-
 import BrandFilter from '../../components/BrandFilter';
 import CategoryFilter from '../../components/CategoryFilter';
 import ItemCard from '../../components/ItemCard';
@@ -105,22 +102,15 @@ const Div = styled.div`
   }
 `;
 
-const Products = ({ clothes, brands, categories }) => {
+const Products = ({ }) => {
   const [width, setWidth] = useState(window.innerWidth);
   const filteredBrands = useSelector((state) => state.filter.brands);
   const filteredCategories = useSelector((state) => state.filter.categories);
   const filteredSort = useSelector((state) => state.filter.sort);
 
-  const clothesRef= collection(db, 'clothes');
-  getDocs(clothesRef).then(
-    (snapshot)=>{
-      snapshot.forEach(
-        (doc) => {
-          console.log(doc.id, "= > ", doc.data());
-        }
-      )
-    }
-  );
+  const products = useSelector((state) => state.products.items);
+  const brands = getBrands(products);
+  const categories = getCategories(products);
 
   const texts = getText('es');
 
@@ -128,8 +118,8 @@ const Products = ({ clothes, brands, categories }) => {
 
   filteredClothes =
     filteredBrands.length > 0
-      ? [...clothes].filter((value) => filteredBrands.includes(value.brand))
-      : [...clothes];
+      ? [...products].filter((value) => filteredBrands.includes(value.brand))
+      : [...products];
 
   filteredClothes =
     filteredCategories.length > 0
@@ -196,12 +186,9 @@ const Products = ({ clothes, brands, categories }) => {
   );
 };
 
-export const getStaticProps = (context) => {
 
-  debugger
-  const items = getItems();
-
-  const brands = items.reduce((previous, current) => {
+const getBrands = (products) => {
+  const brands = products.reduce((previous, current) => {
     if (!previous.includes(current.brand)) {
       previous.push(current.brand);
     }
@@ -209,7 +196,11 @@ export const getStaticProps = (context) => {
     return previous;
   }, []);
 
-  const categories = items.reduce((previous, current) => {
+  return brands;
+}
+
+const getCategories = (products) => {
+  const categories = products.reduce((previous, current) => {
     if (!previous.includes(current.category)) {
       previous.push(current.category);
     }
@@ -217,13 +208,8 @@ export const getStaticProps = (context) => {
     return previous;
   }, []);
 
-  return {
-    props: {
-      clothes: items,
-      brands,
-      categories,
-    },
-  };
-};
+  return categories;
+}
+
 
 export default Products;

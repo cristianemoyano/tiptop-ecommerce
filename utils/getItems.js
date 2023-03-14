@@ -31,16 +31,17 @@ const getItems = () => {
 };
 
 
-export const getProducts = () => {
-  // TODO READ FROM API
-  const clothesRef= collection(db, 'clothes');
+export const getProducts = (onGet) => {
+  const clothesRef= collection(db, 'products');
   getDocs(clothesRef).then(
     (snapshot)=>{
+      let products = [];
       snapshot.forEach(
         (doc) => {
-          console.log(doc.id, "= > ", doc.data());
+          products.push(doc.data()) 
         }
       )
+      onGet(products)
     }
   );
 }

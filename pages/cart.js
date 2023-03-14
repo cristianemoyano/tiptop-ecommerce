@@ -9,12 +9,14 @@ import uniqid from 'uniqid';
 import EmptyCart from '../components/EmptyCart';
 import CartItemCard from '../components/CartItemCard';
 import SignInPromptTemplate from '../components/SignInPromptTemplate';
-import getItemById from '../utils/getItemById';
+import {getItemByIds} from '../utils/getItemById';
 import OrderPlaced from '../components/OrderPlaced';
 import { db } from '../services/firebase-config';
 
 import { CURRENCY } from '../utils/getFormattedCurrency';
 import { getText } from '../utils/getText';
+
+import { markProductsAsReserved } from '../utils/markProductsAsReserved';
 
 const MainNav = styled.div`
   font-size: 14px;
@@ -155,19 +157,34 @@ const Cart = () => {
   const cartItems = useSelector((state) => state.cart.items);
 
   useEffect(() => {
-    const items = cartItems.map((item) => {
-      const itemDetails = getItemById(item.itemId);
-      return {
-        size: item.itemSize,
-        quantity: item.itemQuantity,
-        ...itemDetails,
-      };
+
+    const producIds = cartItems.map((item) => {
+      return item.itemId ? item.itemId : item.id;
     });
 
-    setClothes(() => {
-      setIsLoading(false);
-      return items;
-    });
+    const onGetItems = (itemDetails) => {
+
+      const items = cartItems.map((item) => {
+        const detail = itemDetails.find(
+          (detail) => detail.id === item.itemId
+        );
+        return {
+          size: item.itemSize,
+          quantity: item.itemQuantity,
+          ...detail,
+        };
+      });
+
+      setClothes(() => {
+        setIsLoading(false);
+        return items;
+      });
+
+    }
+
+    getItemByIds(producIds, onGetItems)
+
+
   }, [cartItems]);
 
   const priceValue = clothes.reduce(
@@ -183,16 +200,22 @@ const Cart = () => {
 
   const placeOrderHandler = () => {
     setIsPlacingOrder(true);
-    const items = cartItems.map((item) => {
-      const itemDetails = getItemById(item.itemId);
-      return {
-        size: item.itemSize,
-        quantity: item.itemQuantity,
-        ...itemDetails,
-      };
-    });
+
+    // filter items with stock 0
+    const orderItems = clothes.filter(item => Number(item.stock)>0)
+    const outStockItems = cartItems.filter((item) => {
+      const detail = clothes.find(
+        (detail) => detail.id === item.itemId
+      );
+      return Number(detail.stock)<=0
+    })
+    if (orderItems.length == 0) {
+      setIsPlacingOrder(false);
+      return
+    }
+    // set order
     addDoc(collection(db, 'orders'), {
-      items: items,
+      items: orderItems,
       totalPrice: totalValue,
       user: {
         email: user.email,
@@ -201,10 +224,16 @@ const Cart = () => {
     }).then(() => {
       setIsOrderPlaced(true);
 
+      // Set stock 0
+      const itemIds = orderItems.map((item)=>{
+        return item.id
+      })
+      markProductsAsReserved(itemIds)
+
+      // Clean cart
       updateDoc(doc(db, user.uid, 'cart'), {
-        items: [],
+        items: outStockItems,
       }).then(() => {
-        console.log('cart.js // 190');
         setIsPlacingOrder(false);
       });
     });

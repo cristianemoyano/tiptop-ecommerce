@@ -8,6 +8,9 @@ import Menu from './Menu';
 import { auth } from '../services/firebase-config';
 import { useSelector } from 'react-redux';
 import { getText } from '../utils/getText';
+import { loadProducts } from '../utils/loadProducts';
+import { markProductsAsReserved  } from '../utils/markProductsAsReserved';
+
 
 const Div = styled.div`
   display: flex;
@@ -41,6 +44,7 @@ const Div = styled.div`
       }
     }
   }
+
 
   .box {
     display: flex;
@@ -177,6 +181,8 @@ const NavBar = () => {
 
   const texts = getText('es');
 
+
+
   return (
     <Div>
       <h1 className="title">
@@ -187,6 +193,7 @@ const NavBar = () => {
       </h1>
       <div className="box">
         <ul className="nav-items">
+
           <li className="nav-item">
             <BetterLink href="/wishlist">
               <WishlistIcon />

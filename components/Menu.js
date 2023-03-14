@@ -1,8 +1,14 @@
+import { useEffect, useState } from 'react';
+
 import styled from 'styled-components';
 import { useSelector } from 'react-redux';
 import OutsideClickHandler from 'react-outside-click-handler';
 import { useRouter } from 'next/router';
 import { getText } from '../utils/getText';
+
+import { doc, getDoc } from 'firebase/firestore';
+
+import { db } from '../services/firebase-config';
 
 const Div = styled.div`
   border: 1px #eee solid;
@@ -16,6 +22,10 @@ const Div = styled.div`
   z-index: 10;
   font-size: 14px;
   width: 250px;
+
+  .load-product {
+    color: red;
+  }
 
   .special {
     padding: 8px 58px 8px 16px;
@@ -57,6 +67,22 @@ const Div = styled.div`
 const Menu = ({ onClose, onSignOut }) => {
   const router = useRouter();
   const user = useSelector((state) => state.auth.user);
+  const [account, setAccount] = useState();
+
+
+
+  useEffect(() => {
+
+    if (user) {
+      getDoc(doc(db, user.uid, 'account')).then(
+        (value) => {
+          setAccount(value.data());
+        }
+      )
+    }
+   
+
+  }, []);
 
   const signInHandler = () => {
     router.push('/signin');
@@ -78,7 +104,12 @@ const Menu = ({ onClose, onSignOut }) => {
     onClose();
   };
 
+  const loadHandler = () => {
+    loadProducts();
+  }
+
   const texts = getText('es');
+
 
   return (
     <Div>
@@ -99,6 +130,11 @@ const Menu = ({ onClose, onSignOut }) => {
           )}
         </div>
         <div className="divider"></div>
+        {user && account?.isAdmin ? (
+        <div className='item load-product' onClick={loadHandler}>
+          Cargar productos
+        </div>
+        ) : ''}
         <div className="item" onClick={collectionsHandler}>
         {texts.menu.collections}
         </div>

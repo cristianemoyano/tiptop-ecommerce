@@ -6,9 +6,13 @@ import { doc, onSnapshot } from 'firebase/firestore';
 
 import { auth } from '../services/firebase-config';
 import { authActions } from '../store/authSlice';
+import { productsActions } from '../store/productSlice';
 import { wishlistActions } from '../store/wishlistSlice';
 import { cartActions } from '../store/cartSlice';
 import { db } from '../services/firebase-config';
+
+import { getProducts } from '../utils/getItems';
+
 import Loading from './Loading';
 
 const ReactReduxFirebaseWrapper = ({ children }) => {
@@ -18,6 +22,12 @@ const ReactReduxFirebaseWrapper = ({ children }) => {
   const subscriptions = [];
 
   useEffect(() => {
+
+    // products
+    const onGetProducts = (products) => {
+      dispatch(productsActions.setItems(products));
+    }
+    getProducts(onGetProducts)
 
     const authSub = onAuthStateChanged(
       auth,
@@ -29,7 +39,7 @@ const ReactReduxFirebaseWrapper = ({ children }) => {
             uid: user.uid,
           };
           dispatch(authActions.setUser(userInfo));
-
+          // wishlist
           const wishlistSub = onSnapshot(
             doc(db, user.uid, 'wishlist'),
             (document) => {
@@ -46,25 +56,24 @@ const ReactReduxFirebaseWrapper = ({ children }) => {
               setIsLoading(false);
             }
           );
-
-                          const cartSub = onSnapshot(
-                  doc(db, user.uid, 'cart'),
-                  (document) => {
-                    try {
-                      const items = document.data().items;
-                      dispatch(cartActions.setItems(items));
-                      setIsLoading(false);
-                    } catch (error) {
-                      setIsLoading(false);
-                    }
-                  },
-                  (error) => {
-                    setIsLoading(false);
-                  }
-                );
-
-                subscriptions.push(cartSub);
-
+          // cart 
+          const cartSub = onSnapshot(
+            doc(db, user.uid, 'cart'),
+            (document) => {
+              try {
+                const items = document.data().items;
+                dispatch(cartActions.setItems(items));
+                setIsLoading(false);
+              } catch (error) {
+                setIsLoading(false);
+              }
+            },
+            (error) => {
+              setIsLoading(false);
+            }
+          );
+    
+          subscriptions.push(cartSub);
           subscriptions.push(wishlistSub);
         } else {
           dispatch(authActions.setUser(null));

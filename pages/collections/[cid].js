@@ -1,10 +1,10 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import Link from 'next/link';
 import Image from 'next/image';
 import { useRouter } from 'next/router';
 import styled, { keyframes } from 'styled-components';
 import { useSelector } from 'react-redux';
-import { doc, collection, updateDoc, arrayUnion, addDoc, setDoc } from 'firebase/firestore';
+import { doc, arrayUnion, setDoc, updateDoc, getDoc } from 'firebase/firestore';
 
 import getAllStaticPaths from '../../utils/getAllStaticPaths';
 import getItemById from '../../utils/getItemById';
@@ -188,6 +188,14 @@ const Div = styled.div`
           }
         }
 
+        .cart-disabled {
+          border: 1px gray solid;
+          color: gray;
+          margin-left: 16px;
+          box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+
+        }
+
         .wishlist {
           background-color: white;
           border: 1px #4a00e0 solid;
@@ -298,23 +306,32 @@ const ModalDiv = styled.div`
   }
 `;
 
-const ItemDetails = ({ id, imageURL, brand, category, name, amount, stock, sizes }) => {
+const ItemDetails = ({ productID }) => {
   const [size, setSize] = useState('');
   const [showSizeChart, setShowSizeChart] = useState(false);
   const [promptSize, setPromptSize] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
+  const [item, setItem] = useState();
   const user = useSelector((state) => state.auth.user);
   const wishlistItems = useSelector((state) => state.wishlist.items);
   const cartItems = useSelector((state) => state.cart.items);
   const router = useRouter();
 
-  const isWishlisted = !!wishlistItems.find((value) => value.itemId === id);
+
+  useEffect(() => {
+    getItemById(productID, setItem);
+  
+  }, []);
+
+
+  const isWishlisted = !!wishlistItems.find((value) => value.itemId === productID);
+  const isOutStock = Number(item?.stock) <= 0;
 
   const cartItem = cartItems.find(
-    (item) => item.itemId === id && item.itemSize === size
+    (item) => item.itemId === productID && item.itemSize === size
   );
   const cartItemIndex = cartItems.findIndex(
-    (item) => item.itemId === id && item.itemSize === size
+    (item) => item.itemId === productID && item.itemSize === size
   );
   const isInCart = !!cartItem;
 
@@ -328,9 +345,9 @@ const ItemDetails = ({ id, imageURL, brand, category, name, amount, stock, sizes
 
   const addToWishlistHandler = () => {
     if (user) {
-      setDoc(doc(db, user.uid, 'wishlist'), {
+      updateDoc(doc(db, user.uid, 'wishlist'), {
         items: arrayUnion({
-          itemId: id,
+          itemId: item.id,
           itemSize: size || null,
         }),
       }).catch((error) => console.log(error));
@@ -340,12 +357,17 @@ const ItemDetails = ({ id, imageURL, brand, category, name, amount, stock, sizes
   };
 
   const addToCartHandler = () => {
+
     if (user) {
       if (isInCart) {
-        debugger
         alert('Éste producto ya se encuentra en tu carrito y la cantidad máxima es 1')
         return
       }
+      if (isOutStock) {
+        alert('Éste producto no tiene stock')
+        return
+      }
+
       if (size) {
         setPromptSize(false);
         setIsLoading(true);
@@ -360,7 +382,7 @@ const ItemDetails = ({ id, imageURL, brand, category, name, amount, stock, sizes
             items: updatedItems,
           })
             .then(() => {
-              removeItemHandler();
+              console.log('');
             })
             .catch((error) => console.log(error))
             .finally(() => {
@@ -370,7 +392,7 @@ const ItemDetails = ({ id, imageURL, brand, category, name, amount, stock, sizes
           const docRef = doc(db, user.uid, 'cart')
           updateDoc(docRef, {
             items: arrayUnion({
-              itemId: id,
+              itemId: item.id,
               itemSize: size,
               itemQuantity: '1',
             }),
@@ -417,31 +439,28 @@ const ItemDetails = ({ id, imageURL, brand, category, name, amount, stock, sizes
     )
   }
 
-  return (
-    <>
-      <MainNav>
-        <Link href="/">{texts.home.title}</Link>
-        {' / '}
-        <Link href="/collections">{texts.products.collections}</Link>
-        {' / '}
-        <span>{` ${brand} ${name}`}</span>
-      </MainNav>
-      <Div>
-        <div className="card">
+  const cartMsg = () => {
+    return isOutStock ? "No disponible" : texts.products.cart;
+  }
+
+  const cardComponent = (item) => {
+    return (
+    <div className="card">
           <div className="image">
             <Image
-              src={imageURL}
+              src={item.imageURL}
+              alt={item.name}
               width={330}
               height={412}
               layout="responsive"
             />
           </div>
           <div className="info">
-            <div className="brand">{brand}</div>
-            <div className="name">{name}</div>
-            <div className="name">Stock: {stock}</div>
+            <div className="brand">{item.brand}</div>
+            <div className="name">{item.name}</div>
+            <div className="name">Stock: {item?.stock}</div>
             <div className="amount">{`${CURRENCY} ${getFormattedCurrency(
-              amount
+              item.amount
             )}`}</div>
             <div className="size-box">
               <div className="head">
@@ -452,14 +471,14 @@ const ItemDetails = ({ id, imageURL, brand, category, name, amount, stock, sizes
               </div>
               {promptSize && <div className="error">{texts.wishlist.selectSize}</div>}
               <div className="sizes">
-                {category === 'Jeans' ? (
+                {item.category === 'Jeans' ? (
                   <SizePickerForBottoms
                     currentSize={size}
                     onSetSize={setSize}
-                    sizes={sizes}
+                    sizes={item.sizes}
                   />
                 ) : (
-                  <SizePickerForTops currentSize={size} sizes={sizes} onSetSize={setSize} />
+                  <SizePickerForTops currentSize={size} sizes={item.sizes} onSetSize={setSize} />
                 )}
               </div>
             </div>
@@ -472,22 +491,38 @@ const ItemDetails = ({ id, imageURL, brand, category, name, amount, stock, sizes
                 {isWishlisted ?  wishlistIcon() : texts.wishlist.title}
               </button>
               <button
-                className="cart"
+                className={isOutStock ? "cart-disabled" : "cart" }
                 onClick={addToCartHandler}
-                disabled={isLoading}
+                disabled={isLoading || isOutStock}
               >
-                {isLoading ? <span className="loader"></span> : texts.products.cart}
+                {isLoading ? <span className="loader"></span> : cartMsg()}
               </button>
             </div>
           </div>
         </div>
+    );
+  }
+
+  return (
+    <>
+      <MainNav>
+        <Link href="/">{texts.home.title}</Link>
+        {' / '}
+        <Link href="/collections">{texts.products.collections}</Link>
+        {' / '}
+        <span>{` ${item?.brand} ${item?.name}`}</span>
+      </MainNav>
+      <Div>
+        {
+          item ? cardComponent(item) : ''
+        }
       </Div>
       {showSizeChart && (
         <Modal closeHandler={closeSizeChartHandler}>
           <ModalDiv>
             <div className="title">{texts.products.chartSize}</div>
             <div className="table">
-              {category === 'Jeans' ? (
+              {item.category === 'Jeans' ? (
                 <SizeChartForBottoms />
               ) : (
                 <SizeChartForTops />
@@ -510,12 +545,10 @@ export const getStaticPaths = () => {
 };
 
 export const getStaticProps = (context) => {
-  const cid = context.params.cid;
-  const item = getItemById(cid);
 
   return {
     props: {
-      ...item,
+      productID: context.params.cid,
     },
   };
 };

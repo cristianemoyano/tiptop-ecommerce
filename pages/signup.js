@@ -284,8 +284,8 @@ const SignUp = () => {
         {user ? (
           <>
             <p>
-              You are signed in as <span className="bold">{user.email}</span>.
-              You'll now be redirected.
+              Haz iniciado sesión como <span className="bold">{user.email}</span>.
+              Serás redirigdo.
             </p>
           </>
         ) : (

@@ -1,5 +1,4 @@
 const SizePickerForTops = ({ currentSize, onSetSize, sizes }) => {
-
   const sizeComponent = sizes.map((value, index) => (
     <button
     className={currentSize === value ? 'active' : ''}
