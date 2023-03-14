@@ -1,59 +1,215 @@
+import { useEffect, useState } from 'react';
 import Link from 'next/link';
 import Head from 'next/head';
+import { useSelector } from 'react-redux';
 import styled from 'styled-components';
+
+import BrandFilter from '../components/BrandFilter';
+import CategoryFilter from '../components/CategoryFilter';
+import ItemCard from '../components/ItemCard';
+import SortSelect from '../components/SortSelect';
+
+import SmallSort from '../components/SmallSort';
+import SmallFilter from '../components/SmallFilter';
+import EmptyResults from '../components/EmptyResults';
+
+import { getText } from '../utils/getText';
+
+const MainNav = styled.div`
+  font-size: 14px;
+  background-color: #f4f4f4;
+  padding: 16px;
+  text-align: center;
+
+  a {
+    text-decoration: none;
+    color: inherit;
+  }
+
+  span {
+    color: #999;
+  }
+`;
 
 const Div = styled.div`
   flex: 1;
   display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-  padding: 16px;
-  text-align: center;
 
-  .title {
-    font-size: 64px;
-    font-weight: 600;
-    text-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+  .aside {
+    width: 300px;
+    padding: 16px;
 
-    @media (max-width: 640px) {
-      font-size: 56px;
+    .title {
+      font-size: 18px;
+      font-weight: 500;
     }
   }
 
-  .text {
-    margin-top: 30px;
+  .main {
+    width: 100%;
+    padding: 16px;
+    display: flex;
+    flex-direction: column;
+
+    .top {
+      display: flex;
+
+      .title {
+        font-size: 18px;
+        font-weight: 500;
+        margin-right: auto;
+      }
+    }
+
+    .clothes {
+      margin: 16px 0;
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 16px;
+    }
   }
 
-  a {
-    display: block;
-    margin-top: 40px;
-    padding: 14px 42px;
-    text-decoration: none;
-    font-weight: 500;
-    border: none;
-    border-radius: 10px;
-    background: #8e2de2;
-    background: -webkit-linear-gradient(to right, #8e2de2, #4a00e0);
-    background: linear-gradient(to right, #8e2de2, #4a00e0);
-    color: white;
-    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+  @media (max-width: 1024px) {
+    .main {
+      .clothes {
+        grid-template-columns: repeat(3, 1fr);
+      }
+    }
+  }
+
+  @media (max-width: 768px) {
+    .main {
+      .clothes {
+        grid-template-columns: repeat(2, 1fr);
+      }
+    }
+  }
+
+  @media (max-width: 640px) {
+    .main {
+      .top {
+        align-items: center;
+
+        .sort-filter {
+          display: flex;
+        }
+      }
+
+      .clothes {
+        margin-bottom: 0;
+      }
+    }
   }
 `;
 
-const Home = () => {
+const Products = ({ }) => {
+  const [width, setWidth] = useState(window.innerWidth);
+  const filteredBrands = useSelector((state) => state.filter.brands);
+  const filteredCategories = useSelector((state) => state.filter.categories);
+  const filteredSort = useSelector((state) => state.filter.sort);
+
+  const products = useSelector((state) => state.products.items);
+  const brands = getBrands(products);
+  const categories = getCategories(products);
+
+  const texts = getText('es');
+
+  let filteredClothes;
+
+  filteredClothes =
+    filteredBrands.length > 0
+      ? [...products].filter((value) => filteredBrands.includes(value.brand))
+      : [...products];
+
+  filteredClothes =
+    filteredCategories.length > 0
+      ? filteredClothes.filter((value) =>
+          filteredCategories.includes(value.category)
+        )
+      : filteredClothes;
+
+  if (filteredSort === 'price_high_to_low') {
+    filteredClothes = filteredClothes.sort((a, b) => +b.amount - +a.amount);
+  } else if (filteredSort === 'price_low_to_high') {
+    filteredClothes = filteredClothes.sort((a, b) => +a.amount - +b.amount);
+  }
+
+  useEffect(() => {
+    const handleWindowResize = () => setWidth(window.innerWidth);
+    window.addEventListener('resize', handleWindowResize);
+
+    return () => {
+      window.removeEventListener('resize', handleWindowResize);
+    };
+  }, []);
+
   return (
     <>
       <Head>
-        <title>Online Shopping for Men - Tiptop</title>
+        <title>{texts.products.collections}</title>
       </Head>
+      <MainNav>
+        <Link href="/">{texts.products.home}</Link> / <span>{texts.products.collections}</span>
+      </MainNav>
       <Div>
-        <p className="title">Feria Americana</p>
-        <p className="text">Nota: Los productos listados son productos usados.</p>
-        <Link href="/collections">Ver productos</Link>
+        {width > 640 && (
+          <aside className="aside">
+            <div className="title">{texts.products.filters}</div>
+            <BrandFilter items={brands} />
+            <CategoryFilter items={categories} />
+          </aside>
+        )}
+        <main className="main">
+          <div className="top">
+            <div className="title">{texts.products.collections}</div>
+            {width > 640 ? (
+              <SortSelect />
+            ) : (
+              <div className="sort-filter">
+                <SmallSort />
+                <SmallFilter brandItems={brands} categoryItems={categories} />
+              </div>
+            )}
+          </div>
+          {filteredClothes.length > 0 ? (
+            <div className="clothes">
+              {filteredClothes.map((item, index) => (
+                <ItemCard key={item.id} {...item} setPriority={index < 8} />
+              ))}
+            </div>
+          ) : (
+            <EmptyResults />
+          )}
+        </main>
       </Div>
     </>
   );
 };
 
-export default Home;
+
+const getBrands = (products) => {
+  const brands = products.reduce((previous, current) => {
+    if (!previous.includes(current.brand)) {
+      previous.push(current.brand);
+    }
+
+    return previous;
+  }, []);
+
+  return brands;
+}
+
+const getCategories = (products) => {
+  const categories = products.reduce((previous, current) => {
+    if (!previous.includes(current.category)) {
+      previous.push(current.category);
+    }
+
+    return previous;
+  }, []);
+
+  return categories;
+}
+
+
+export default Products;
