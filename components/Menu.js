@@ -90,7 +90,7 @@ const Menu = ({ onClose, onSignOut }) => {
   };
 
   const collectionsHandler = () => {
-    router.push('/collections');
+    router.push('/');
     onClose();
   };
 

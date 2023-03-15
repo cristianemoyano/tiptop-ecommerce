@@ -205,7 +205,7 @@ const SignUp = () => {
   const user = useSelector((state) => state.auth.user);
 
   if (user) {
-    router.replace('/collections');
+    router.replace('/');
   }
 
   const isNameValid = nameInput.length !== 0;

@@ -252,7 +252,7 @@ const SignIn = () => {
   const user = useSelector((state) => state.auth.user);
 
   if (user) {
-    router.replace('/collections');
+    router.replace('/');
   }
 
   const emailInputHandler = (ev) => {

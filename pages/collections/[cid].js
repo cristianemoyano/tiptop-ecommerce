@@ -508,7 +508,7 @@ const ItemDetails = ({ productID }) => {
       <MainNav>
         <Link href="/">{texts.home.title}</Link>
         {' / '}
-        <Link href="/collections">{texts.products.collections}</Link>
+        <Link href="/">{texts.products.collections}</Link>
         {' / '}
         <span>{` ${item?.brand} ${item?.name}`}</span>
       </MainNav>

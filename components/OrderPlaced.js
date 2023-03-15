@@ -68,7 +68,7 @@ const OrderPlaced = () => {
       </div>
       <h2 className="title">{texts.cart.success}</h2>
       <p className="text">{texts.cart.thanks}</p>
-      <Link href="/collections">{texts.cart.continue}</Link>
+      <Link href="/">{texts.cart.continue}</Link>
     </Div>
   );
 };
