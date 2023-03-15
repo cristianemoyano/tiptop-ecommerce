@@ -2,6 +2,9 @@ const ES = {
   "home": {
     "title": "Inicio",
   },
+  "orders": {
+    "title": "Mis pedidos",
+  },
   "prompt": {
     "title": "Por favor iniciar sesión",
     "text": "Inicia sesión para poder ver",
@@ -15,6 +18,7 @@ const ES = {
     "logout": "Cerrar sesión",
     "login": "Iniciar sesión",
     "welcome": "Bienvenido",
+    "orders": "Mis pedidos",
   },
   "products": {
     "cart": "Agregar al carrito",

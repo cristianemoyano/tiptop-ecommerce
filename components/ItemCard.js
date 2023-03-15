@@ -31,21 +31,24 @@ const Div = styled.div`
   }
 `;
 
-const ItemCard = ({ id, imageURL, brand, name, amount, setPriority, stock }) => {
+const ItemCard = ({ id, imageURL, brand, name, amount, setPriority, stock, imageResponsive=true, imgWidth=220, imgHeight=275 }) => {
   return (
     <Div>
       <BetterLink href={`/collections/${id}`}>
         <Image
           src={imageURL}
-          width={220}
-          height={275}
-          layout="responsive"
+          width={imgWidth}
+          height={imgHeight}
+          layout={imageResponsive? 'responsive' : ''}
           priority={setPriority}
+          alt={name}
         />
         <div className="info">
           <div className="brand">{brand}</div>
           <div className="name">{name}</div>
-          <div className="name">Stock: {stock}</div>
+          {stock ? (
+            <div className="name">Stock: {stock}</div>
+          ) : ''}
           <div className="amount">{`${CURRENCY} ${getFormattedCurrency(amount)}`}</div>
         </div>
       </BetterLink>

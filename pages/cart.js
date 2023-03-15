@@ -214,15 +214,18 @@ const Cart = () => {
       return
     }
     // set order
-    addDoc(collection(db, 'orders'), {
+    const order = {
       items: orderItems,
       totalPrice: totalValue,
       user: {
         email: user.email,
         uid: user.uid,
       },
-      createdAt: String(new Date()),
-    }).then(() => {
+      createdAt: String(new Date().toISOString()),
+    }
+
+
+    addDoc(collection(db, 'orders'), order).then(() => {
       setIsOrderPlaced(true);
 
       // Set stock 0
@@ -230,6 +233,8 @@ const Cart = () => {
         return item.id
       })
       markProductsAsReserved(itemIds)
+      // My orders
+      addDoc(collection(db, user.uid, 'orders', 'all'), order)
 
       // Clean cart
       updateDoc(doc(db, user.uid, 'cart'), {

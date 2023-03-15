@@ -89,6 +89,11 @@ const Menu = ({ onClose, onSignOut }) => {
     onClose();
   };
 
+  const myOrdersHandler = () => {
+    router.push('/orders');
+    onClose();
+  };
+
   const collectionsHandler = () => {
     router.push('/');
     onClose();
@@ -135,6 +140,9 @@ const Menu = ({ onClose, onSignOut }) => {
           Cargar productos
         </div>
         ) : ''}
+        <div className="item" onClick={myOrdersHandler}>
+        {texts.menu.orders}
+        </div>
         <div className="item" onClick={collectionsHandler}>
         {texts.menu.collections}
         </div>
@@ -144,6 +152,7 @@ const Menu = ({ onClose, onSignOut }) => {
         <div className="item" onClick={cartHandler}>
         {texts.menu.cart}
         </div>
+        <div className="divider"></div>
         {user && (
           <div className="item" onClick={onSignOut}>
              {texts.menu.logout}
