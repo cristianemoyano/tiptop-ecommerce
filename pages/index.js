@@ -2,7 +2,7 @@ import { useEffect, useState } from 'react';
 import Link from 'next/link';
 import Head from 'next/head';
 import { useSelector } from 'react-redux';
-import styled from 'styled-components';
+import styled, { keyframes } from 'styled-components';
 
 import BrandFilter from '../components/BrandFilter';
 import CategoryFilter from '../components/CategoryFilter';
@@ -14,6 +14,7 @@ import SmallFilter from '../components/SmallFilter';
 import EmptyResults from '../components/EmptyResults';
 
 import { getText } from '../utils/getText';
+import getProductsPaginated from '../utils/hooks/pagination'
 
 const MainNav = styled.div`
   font-size: 14px;
@@ -29,6 +30,15 @@ const MainNav = styled.div`
   span {
     color: #999;
   }
+`;
+
+const rotation = keyframes`
+  from {
+        transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }    
 `;
 
 const Div = styled.div`
@@ -66,6 +76,57 @@ const Div = styled.div`
       display: grid;
       grid-template-columns: repeat(4, 1fr);
       gap: 16px;
+    }
+
+    button {
+      font: inherit;
+      font-weight: 500;
+      border-radius: 6px;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      outline: none;
+      cursor: pointer;
+      border: none;
+      width: 145px;
+      height: 48px;
+    }
+
+    .load-more {
+      background-color: #8e2de2;
+      color:#fff !important;
+      padding:5px 10px;
+      border-radius:4px;
+      font-size:20px;
+      margin:50px 0;
+      display:inline-block;
+      background: -webkit-linear-gradient(to right, #8e2de2, #4a00e0);
+      background: linear-gradient(to right, #8e2de2, #4a00e0);
+      color: white;
+      margin-left: 16px;
+      box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+
+      .loader {
+        width: 18px;
+        height: 18px;
+        border: 2px solid #fff;
+        border-bottom-color: transparent;
+        border-radius: 50%;
+        margin: 0px 50px;
+        display: block;
+        animation: ${rotation} 1s linear infinite;
+      }
+
+
+    }
+
+    .load-more:hover{
+      background-color:blue;
+      text-decoration:none;
+    }
+
+    .center {
+      text-align: center;
     }
   }
 
@@ -107,6 +168,10 @@ const Products = ({ }) => {
   const filteredBrands = useSelector((state) => state.filter.brands);
   const filteredCategories = useSelector((state) => state.filter.categories);
   const filteredSort = useSelector((state) => state.filter.sort);
+  const [isLoading, setIsLoading] = useState(false);
+
+  const [lastProduct, setLastProduct] = useState(null);
+  const [productsPaginated, setProductsPaginated] = useState([]);
 
   const products = useSelector((state) => state.products.items);
   const brands = getBrands(products);
@@ -118,8 +183,8 @@ const Products = ({ }) => {
 
   filteredClothes =
     filteredBrands.length > 0
-      ? [...products].filter((value) => filteredBrands.includes(value.brand))
-      : [...products];
+      ? [...productsPaginated].filter((value) => filteredBrands.includes(value.brand))
+      : [...productsPaginated];
 
   filteredClothes =
     filteredCategories.length > 0
@@ -134,14 +199,31 @@ const Products = ({ }) => {
     filteredClothes = filteredClothes.sort((a, b) => +a.amount - +b.amount);
   }
 
+  const onGetProducts = (newProducts, last) => {
+    if (newProducts && last) {
+      setLastProduct(last);
+      setProductsPaginated([...productsPaginated, ...newProducts]);
+    }
+    setIsLoading(false);
+  }
+
   useEffect(() => {
     const handleWindowResize = () => setWidth(window.innerWidth);
     window.addEventListener('resize', handleWindowResize);
 
+    getProductsPaginated(lastProduct, onGetProducts);
+
     return () => {
       window.removeEventListener('resize', handleWindowResize);
     };
+
+
   }, []);
+
+  const handleLoadMore = () => {
+    setIsLoading(true);
+    getProductsPaginated(lastProduct, onGetProducts);
+  };
 
   return (
     <>
@@ -161,6 +243,7 @@ const Products = ({ }) => {
         )}
         <main className="main">
           <div className="top">
+          
             <div className="title">{texts.products.collections}</div>
             {width > 640 ? (
               <SortSelect />
@@ -172,11 +255,21 @@ const Products = ({ }) => {
             )}
           </div>
           {filteredClothes.length > 0 ? (
-            <div className="clothes">
+            <div>
+              <div className="clothes">
               {filteredClothes.map((item, index) => (
                 <ItemCard key={item.id} {...item} setPriority={index < 8} />
               ))}
             </div>
+                <div className='center'>
+              <button className='load-more' onClick={handleLoadMore}>
+                {isLoading ? (<><span className="loader"></span></>) : 'Ver más'}  
+              </button>
+              </div>
+            </div>
+            
+
+            
           ) : (
             <EmptyResults />
           )}
