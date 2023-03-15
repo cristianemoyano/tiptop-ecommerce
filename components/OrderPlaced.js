@@ -4,6 +4,8 @@ import Link from 'next/link';
 import { CheckIcon } from '../assets/icons';
 import { getText } from '../utils/getText';
 
+import Alias from './Alias'
+
 const Div = styled.div`
   flex: 1;
   display: flex;
@@ -90,10 +92,8 @@ const OrderPlaced = ({oid, totalPrice}) => {
       </div>
       <h2 className="title">{texts.cart.success}</h2>
       <p className='text'>Pedido nro. <b>{oid}</b></p>
-      <p className="warn">{texts.cart.thanks}</p>
       <p className="total">Total a pagar: $ {totalPrice}</p>
-      <p className="text">Alias:</p>
-      <p className="alias">{texts.cart.alias}</p>
+      <Alias/>
       <Link href="/orders">Mis Pedidos</Link>
       <Link href="/">{texts.cart.continue}</Link>
     </Div>

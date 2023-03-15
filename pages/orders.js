@@ -7,6 +7,8 @@ import { useSelector } from 'react-redux';
 import MyOrderItemCard from '../components/MyOrderItemCard';
 
 import getMyOrders from '../utils/getMyOrders'
+
+import Alias from '../components/Alias';
 import { getText } from '../utils/getText';
 
 const fade = keyframes`
@@ -118,6 +120,7 @@ const Orders = () => {
       <MainNav>
         <Link href="/">{texts.home.title}</Link> / <span>{texts.orders.title}</span>
       </MainNav>
+      <Alias/>
       {myOrders.map((order)=>{
         return (
           order.id

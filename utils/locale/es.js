@@ -57,7 +57,6 @@ const ES = {
     "qty": "Cantidad",
     "success": "Orden emitida con éxito",
     "thanks": "Tu pedido va estar confirmado una vez que hayas realizado el pago.",
-    "alias": "cristian.moyano.mza",
     "continue": "Volver a la tienda"
   },
   "signin": {
