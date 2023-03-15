@@ -40,7 +40,7 @@ const EmptyResults = () => {
       <div className="round">
         <FilterIcon />
       </div>
-      <p className="text">No results found</p>
+      <p className="text">No hay productos</p>
     </Div>
   );
 };
