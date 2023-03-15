@@ -116,8 +116,19 @@ const Div = styled.div`
         display: block;
         animation: ${rotation} 1s linear infinite;
       }
+    }
 
-
+    .load-disabled {
+      background-color: gray;
+      color:#fff !important;
+      padding:5px 10px;
+      border-radius:4px;
+      font-size:20px;
+      margin:50px 0;
+      display:inline-block;
+      color: white;
+      margin-left: 16px;
+      box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
     }
 
     .load-more:hover{
@@ -169,6 +180,7 @@ const Products = ({ }) => {
   const filteredCategories = useSelector((state) => state.filter.categories);
   const filteredSort = useSelector((state) => state.filter.sort);
   const [isLoading, setIsLoading] = useState(false);
+  const [isEndPagination, setEndPagination] = useState(false);
 
   const [lastProduct, setLastProduct] = useState(null);
   const [productsPaginated, setProductsPaginated] = useState([]);
@@ -203,6 +215,8 @@ const Products = ({ }) => {
     if (newProducts && last) {
       setLastProduct(last);
       setProductsPaginated([...productsPaginated, ...newProducts]);
+    } else {
+      setEndPagination(true)
     }
     setIsLoading(false);
   }
@@ -262,7 +276,7 @@ const Products = ({ }) => {
               ))}
             </div>
                 <div className='center'>
-              <button className='load-more' onClick={handleLoadMore}>
+              <button className={isEndPagination ? 'load-disabled' : 'load-more'} onClick={handleLoadMore} disabled={isEndPagination}>
                 {isLoading ? (<><span className="loader"></span></>) : 'Ver más'}  
               </button>
               </div>
