@@ -3,6 +3,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import styled from 'styled-components';
 
 import { filterActions } from '../store/filterSlice';
+import { CheckIcon } from '../assets/icons';
 
 const Button = styled.button`
   flex-shrink: 0;
@@ -10,13 +11,19 @@ const Button = styled.button`
   height: 18px;
   border: 1px #bbb solid;
   border-radius: 50%;
-  background-color: transparent;
+  background-color: gray;
   margin-right: 8px;
   cursor: pointer;
 
   &.checked {
     border-color: #4a00e0;
     border-width: 5px;
+    border-color: #4a00e0;
+    background-color: #4a00e0;
+    color: white;
+    display: flex;
+    justify-content: center;
+    align-items: center;
 
     .icon {
       stroke-width: 3;
@@ -42,11 +49,12 @@ const RoundBox = ({ of }) => {
     setIsChecked(true);
   };
 
-  return (
-    <Button
-      className={isChecked ? 'checked' : ''}
-      onClick={clickHandler}
-    ></Button>
+  return isChecked ? (
+    <Button className="checked" onClick={clickHandler}>
+      <CheckIcon />
+    </Button>
+  ) : (
+    <Button onClick={clickHandler}></Button>
   );
 };
 

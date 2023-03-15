@@ -4,7 +4,7 @@ import { getText } from '../utils/getText';
 import CheckBox from './CheckBox';
 
 const Div = styled.div`
-  margin-top: 32px;
+  margin-top: 12px;
 
   .heading {
     margin-bottom: 16px;
@@ -21,6 +21,7 @@ const Div = styled.div`
       margin: 0;
       padding: 0;
       font-size: 14px;
+
     }
   }
 

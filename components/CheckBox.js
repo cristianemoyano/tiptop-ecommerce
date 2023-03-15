@@ -7,13 +7,14 @@ import { filterActions } from '../store/filterSlice';
 
 const Button = styled.button`
   flex-shrink: 0;
-  width: 18px;
+  width: 13px;
   height: 18px;
   border: 1px #bbb solid;
+  border-color: #4a00e0;
   border-radius: 2px;
-  background-color: transparent;
   margin-right: 8px;
   cursor: pointer;
+  color: black;
 
   &.checked {
     border-color: #4a00e0;

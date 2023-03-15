@@ -55,6 +55,11 @@ const Div = styled.div`
     }
   }
 
+  .fixedElement {
+    position:fixed;
+    z-index:100;
+}
+
   .main {
     width: 100%;
     padding: 16px;
@@ -185,9 +190,9 @@ const Products = ({ }) => {
   const [lastProduct, setLastProduct] = useState(null);
   const [productsPaginated, setProductsPaginated] = useState([]);
 
-  const products = useSelector((state) => state.products.items);
-  const brands = getBrands(products);
-  const categories = getCategories(products);
+  // const products = useSelector((state) => state.products.items);
+  const brands = getBrands(productsPaginated);
+  const categories = getCategories(productsPaginated);
 
   const texts = getText('es');
 
@@ -201,8 +206,8 @@ const Products = ({ }) => {
   filteredClothes =
     filteredCategories.length > 0
       ? filteredClothes.filter((value) =>
-          filteredCategories.includes(value.category)
-        )
+        filteredCategories.includes(value.category)
+      )
       : filteredClothes;
 
   if (filteredSort === 'price_high_to_low') {
@@ -251,14 +256,17 @@ const Products = ({ }) => {
         {width > 640 && (
           <aside className="aside">
             <div className="title">{texts.products.filters}</div>
-            <BrandFilter items={brands} />
-            <CategoryFilter items={categories} />
+            <div className='fixedElement'>
+              <BrandFilter items={brands} />
+              <CategoryFilter items={categories} />
+            </div>
+
           </aside>
         )}
         <main className="main">
           <div className="top">
-          
-            <div className="title">{texts.products.collections}</div>
+
+            <div className="title ">{texts.products.collections}</div>
             {width > 640 ? (
               <SortSelect />
             ) : (
@@ -271,19 +279,19 @@ const Products = ({ }) => {
           {filteredClothes.length > 0 ? (
             <div>
               <div className="clothes">
-              {filteredClothes.map((item, index) => (
-                <ItemCard key={item.id} {...item} setPriority={index < 8} />
-              ))}
-            </div>
-                <div className='center'>
-              <button className={isEndPagination ? 'load-disabled' : 'load-more'} onClick={handleLoadMore} disabled={isEndPagination}>
-                {isLoading ? (<><span className="loader"></span></>) : 'Ver más'}  
-              </button>
+                {filteredClothes.map((item, index) => (
+                  <ItemCard key={item.id} {...item} setPriority={index < 8} />
+                ))}
+              </div>
+              <div className='center'>
+                <button className={isEndPagination ? 'load-disabled' : 'load-more'} onClick={handleLoadMore} disabled={isEndPagination}>
+                  {isLoading ? (<><span className="loader"></span></>) : 'Ver más'}
+                </button>
               </div>
             </div>
-            
 
-            
+
+
           ) : (
             <EmptyResults />
           )}

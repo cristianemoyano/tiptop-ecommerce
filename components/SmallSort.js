@@ -6,7 +6,6 @@ import Modal from './Modal';
 import SortBy from './SortBy';
 
 const Button = styled.button`
-  color: inherit;
   background-color: white;
   border: none;
   border-radius: 50%;
@@ -16,6 +15,7 @@ const Button = styled.button`
   padding: 4px;
   margin-right: 8px;
   cursor: pointer;
+  width: 140px;
 `;
 
 const ModalDiv = styled.div`
