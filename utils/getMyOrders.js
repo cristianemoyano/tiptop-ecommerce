@@ -1,11 +1,14 @@
 import { db } from '../services/firebase-config';
-import { collection, getDocs } from 'firebase/firestore';
+import { collection, getDocs, query, orderBy } from 'firebase/firestore';
 
 
 
 export const getMyOrders = (user, onGet) => {
   const clothesRef= collection(db, user.uid, 'orders', 'all');
-  getDocs(clothesRef).then(
+
+  let _query = query(clothesRef, orderBy('createdAt', 'desc'));
+
+  getDocs(_query).then(
     (snapshot)=>{
       let orders = [];
       snapshot.forEach(

@@ -4,6 +4,8 @@ import { getFormattedCurrency, CURRENCY } from '../utils/getFormattedCurrency';
 
 import ItemCard from './ItemCard'
 
+import getDateFormatted from '../utils/formatDate'
+
 
 const Div = styled.div`
   flex: 1;
@@ -103,7 +105,7 @@ const MyOrderItemCard = ({
           <div className="info">
             <div className="brand">Pedido ID#: {oid}</div>
             <div className="name">Internal ID#: {uid}</div>
-            <div className="name">Fecha: {createdAt}</div>
+            <div className="name">Fecha: {getDateFormatted(createdAt)}</div>
             <div className="amount">Total: {`${CURRENCY} ${getFormattedCurrency(
               totalPrice
             )}`}</div>
