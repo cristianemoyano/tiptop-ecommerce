@@ -42,6 +42,28 @@ const Div = styled.div`
   .text {
     margin-top: 24px;
   }
+  .warn {
+    color: #4a00e0;
+    font-size: 18px;
+    text-align: center;
+    padding: 10px;
+  }
+
+  .total {
+    font-size: 24px;
+    text-align: center;
+    padding: 10px;
+  }
+
+  .alias {
+    border: 3px #4a00e0 solid;
+    margin-top: 24px;
+    background: #eee;
+    padding: 10px;
+    border-radius: 5%;
+    font-size: 24px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.05);
+  }
 
   a {
     display: block;
@@ -59,7 +81,7 @@ const Div = styled.div`
   }
 `;
 
-const OrderPlaced = () => {
+const OrderPlaced = ({oid, totalPrice}) => {
   const texts = getText('es');
   return (
     <Div>
@@ -67,7 +89,12 @@ const OrderPlaced = () => {
         <CheckIcon />
       </div>
       <h2 className="title">{texts.cart.success}</h2>
-      <p className="text">{texts.cart.thanks}</p>
+      <p className='text'>Pedido nro. <b>{oid}</b></p>
+      <p className="warn">{texts.cart.thanks}</p>
+      <p className="total">Total a pagar: $ {totalPrice}</p>
+      <p className="text">Alias:</p>
+      <p className="alias">{texts.cart.alias}</p>
+      <Link href="/orders">Mis Pedidos</Link>
       <Link href="/">{texts.cart.continue}</Link>
     </Div>
   );

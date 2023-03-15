@@ -153,6 +153,7 @@ const Cart = () => {
   const [isLoading, setIsLoading] = useState(true);
   const [isPlacingOrder, setIsPlacingOrder] = useState(false);
   const [isOrderPlaced, setIsOrderPlaced] = useState(false);
+  const [orderPlaced, setorderPlaced] = useState();
   const user = useSelector((state) => state.auth.user);
   const cartItems = useSelector((state) => state.cart.items);
 
@@ -225,8 +226,9 @@ const Cart = () => {
     }
 
 
-    addDoc(collection(db, 'orders'), order).then(() => {
+    addDoc(collection(db, 'orders'), order).then((res) => {
       setIsOrderPlaced(true);
+      setorderPlaced({oid: res.id, ...order})
 
       // Set stock 0
       const itemIds = orderItems.map((item)=>{
@@ -234,7 +236,7 @@ const Cart = () => {
       })
       markProductsAsReserved(itemIds)
       // My orders
-      addDoc(collection(db, user.uid, 'orders', 'all'), order)
+      addDoc(collection(db, user.uid, 'orders', 'all'), {oid: res.id, ...order})
 
       // Clean cart
       updateDoc(doc(db, user.uid, 'cart'), {
@@ -256,7 +258,7 @@ const Cart = () => {
         <Link href="/">{texts.home.title}</Link> / <span>{texts.cart.title}</span>
       </MainNav>
       {isOrderPlaced ? (
-        <OrderPlaced />
+        <OrderPlaced {...orderPlaced}/>
       ) : (
         !isLoading &&
         (user ? (
