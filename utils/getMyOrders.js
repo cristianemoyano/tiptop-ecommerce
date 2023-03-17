@@ -4,6 +4,10 @@ import { collection, getDocs, query, orderBy } from 'firebase/firestore';
 
 
 export const getMyOrders = (user, onGet) => {
+  if (user === null) {
+    onGet([])
+    return
+  }
   const clothesRef= collection(db, user.uid, 'orders', 'all');
 
   let _query = query(clothesRef, orderBy('createdAt', 'desc'));

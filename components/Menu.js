@@ -5,6 +5,7 @@ import { useSelector } from 'react-redux';
 import OutsideClickHandler from 'react-outside-click-handler';
 import { useRouter } from 'next/router';
 import { getText } from '../utils/getText';
+import loadProducts from '../utils/loadProducts'
 
 import { doc, getDoc } from 'firebase/firestore';
 

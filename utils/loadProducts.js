@@ -1,7 +1,7 @@
-import data from '../pages/api/data.json';
+import data from '../pages/api/prod.json';
 
 import { db } from '../services/firebase-config';
-import { collection, addDoc } from 'firebase/firestore';
+import { collection, setDoc, doc } from 'firebase/firestore';
 
 
 
@@ -10,7 +10,7 @@ export const loadProducts = () => {
     const items = data.clothes;
     
     items.forEach((item) => {
-        addDoc(collection(db, 'products'), item).then(() => {
+        setDoc(doc(db, 'products', item.id), item).then(() => {
             console.log("Product added: ", item)
         });
     });

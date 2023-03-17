@@ -5,7 +5,10 @@ const nextConfig = {
     styledComponents: true,
   },
   images: {
-    domains: ['firebasestorage.googleapis.com'],
+    domains: [
+      'firebasestorage.googleapis.com',
+      'gateway.pinata.cloud'
+    ],
   },
   eslint: {
     ignoreDuringBuilds: true,
