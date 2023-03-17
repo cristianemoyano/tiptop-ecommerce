@@ -56,8 +56,17 @@ const Div = styled.div`
   }
 
   .fixedElement {
-    position:fixed;
+    border-style: dotted;
+   border-width: 2px;
+   border-color: #ccc;
+    height: 80vh;
+    width: 25vh;
+    padding: 0 30px 0 10px;
+    overflow-y: scroll;
+    overflow: auto;
+    position: fixed;
     z-index:100;
+
 }
 
   .main {
@@ -257,8 +266,9 @@ const Products = ({ }) => {
       <Div>
         {width > 640 && (
           <aside className="aside">
-            <div className="title">{texts.products.filters}</div>
             <div className='fixedElement'>
+            <div className="title">{texts.products.filters}</div>
+              <hr></hr>
               <BrandFilter items={brands} />
               <CategoryFilter items={categories} />
             </div>
