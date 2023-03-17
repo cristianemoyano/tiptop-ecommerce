@@ -31,7 +31,7 @@ const Div = styled.div`
   }
 `;
 
-const ItemCard = ({ id, imageURL, brand, name, amount, setPriority, stock, imageResponsive=true, imgWidth=220, imgHeight=275 }) => {
+const ItemCard = ({ id, imageURL, brand, name, amount, setPriority, stock, sizes, color, imageResponsive=true, imgWidth=220, imgHeight=275 }) => {
   return (
     <Div>
       <BetterLink href={`/collections/${id}`}>
@@ -47,7 +47,7 @@ const ItemCard = ({ id, imageURL, brand, name, amount, setPriority, stock, image
           <div className="brand">{brand}</div>
           <div className="name">{name}</div>
           {stock ? (
-            <div className="name">Stock: {stock}</div>
+            <div className="name">Stock: {stock} · Talle: {sizes} · Color: {color}</div>
           ) : ''}
           <div className="amount">{`${CURRENCY} ${getFormattedCurrency(amount)}`}</div>
         </div>

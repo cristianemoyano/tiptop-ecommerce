@@ -93,11 +93,12 @@ const Div = styled.div`
       outline: none;
       cursor: pointer;
       border: none;
-      width: 145px;
+      width: 140px;
       height: 48px;
     }
 
     .load-more {
+      width: 240px;
       background-color: #8e2de2;
       color:#fff !important;
       padding:5px 10px;
@@ -124,6 +125,7 @@ const Div = styled.div`
     }
 
     .load-disabled {
+      width: 240px;
       background-color: gray;
       color:#fff !important;
       padding:5px 10px;
@@ -285,7 +287,7 @@ const Products = ({ }) => {
               </div>
               <div className='center'>
                 <button className={isEndPagination ? 'load-disabled' : 'load-more'} onClick={handleLoadMore} disabled={isEndPagination}>
-                  {isLoading ? (<><span className="loader"></span></>) : 'Ver más'}
+                  {isLoading ? (<><span className="loader"></span></>) : 'Cargar más productos'}
                 </button>
               </div>
             </div>
