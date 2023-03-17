@@ -1,0 +1,29 @@
+{
+    "clothes": [
+      {
+        "id": "1000",
+        "imageURL": "https://gateway.pinata.cloud/ipfs/QmTmjhYAaV2Cpbx6T8ugND2Y3MjgBW1Wx1vtwwRAQqyVna?_gl=1*1ox3pxx*_ga*NmE4NTU3ZjItODFhZS00YzhhLWFiYWMtZjc2OWY3MTA2N2Nj*_ga_5RMPXG14TE*MTY3OTAxNDEzOC4xLjEuMTY3OTAxNDU3OS4zNi4wLjA.",
+        "brand": "Equus",
+        "category": "Chombas",
+        "name": "Chomba Básica Rosa Equus",
+        "color": "Rosa",
+        "amount": "3000",
+        "description": "Chomba color Rosa de mangas cortas. Composición: ALGODÓN",
+        "stock": 1,
+        "sizes": ["XL"]
+      },
+      {
+        "id": "1001",
+        "imageURL": "https://gateway.pinata.cloud/ipfs/QmavGJErsWTfAvF4sttDjJhNrs3Lh2M3TfftzrZqnND9cf?_gl=1*8hkilu*_ga*NmE4NTU3ZjItODFhZS00YzhhLWFiYWMtZjc2OWY3MTA2N2Nj*_ga_5RMPXG14TE*MTY3OTAxNDEzOC4xLjEuMTY3OTAxNTM5Ni41MS4wLjA.",
+        "brand": "Regatta",
+        "category": "Chombas",
+        "name": "Chomba Básica Gris Regatta",
+        "color": "Gris",
+        "amount": "2500",
+        "description": "Chomba color Gris de mangas cortas. Composición: ALGODÓN",
+        "stock": 1,
+        "sizes": ["L"]
+      }
+    ]
+  }
+  

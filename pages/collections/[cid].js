@@ -63,6 +63,7 @@ const Div = styled.div`
       .brand {
         font-size: 20px;
         font-weight: 500;
+        margin-top: 20px;
       }
 
       .name {
@@ -227,7 +228,7 @@ const Div = styled.div`
         margin-bottom: 0;
 
         .brand {
-          font-size: 18px;
+          font-size: 13px;
           font-weight: 500;
         }
 
@@ -456,9 +457,10 @@ const ItemDetails = ({ productID }) => {
             />
           </div>
           <div className="info">
-            <div className="brand">{item.brand}</div>
-            <div className="name">{item.name}</div>
+            <div className="brand">{item.name}</div>
+            <div className="name">Marca: {item.brand}</div>
             <div className="name">Stock: {item?.stock}</div>
+            <div className="name">Código: #{item?.id}</div>
             <div className="amount">{`${CURRENCY} ${getFormattedCurrency(
               item.amount
             )}`}</div>
@@ -497,7 +499,13 @@ const ItemDetails = ({ productID }) => {
               >
                 {isLoading ? <span className="loader"></span> : cartMsg()}
               </button>
+             
             </div>
+            <div className='description'>
+              <p className='brand'>Descripción</p>
+            <div className="name">{item.description}</div>
+            </div>
+            
           </div>
         </div>
     );
