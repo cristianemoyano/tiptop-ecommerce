@@ -15,6 +15,7 @@ import { db } from '../services/firebase-config';
 
 import { CURRENCY } from '../utils/getFormattedCurrency';
 import { getText } from '../utils/getText';
+import isStoreEnabled from '../utils/isStoreEnabled';
 
 import { markProductsAsReserved } from '../utils/markProductsAsReserved';
 
@@ -119,6 +120,27 @@ const Div = styled.div`
           animation: ${rotation} 1s linear infinite;
         }
       }
+
+      .order-disabled {
+        font: inherit;
+        border-radius: 10px;
+        background: gray;
+        color: white;
+        font-size: 16px;
+        font-weight: 500;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        width: 100%;
+        height: 48px;
+        outline: none;
+        cursor: pointer;
+        padding: 14px 28px;
+        margin-top: 32px;
+        border: none;
+        box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+      }
+
     }
   }
 
@@ -156,6 +178,7 @@ const Cart = () => {
   const [orderPlaced, setorderPlaced] = useState();
   const user = useSelector((state) => state.auth.user);
   const cartItems = useSelector((state) => state.cart.items);
+  const isStoreEnabledVar = isStoreEnabled();
 
   useEffect(() => {
 
@@ -200,6 +223,10 @@ const Cart = () => {
   const totalValue = priceValue - discountValue;
 
   const placeOrderHandler = () => {
+    if (!isStoreEnabledVar){
+      return
+    }
+
     setIsPlacingOrder(true);
 
     // filter items with stock 0
@@ -248,6 +275,18 @@ const Cart = () => {
   };
 
   const texts = getText('es');
+
+  const orderBtnMsg = () => {
+    if (!isStoreEnabledVar) {
+      return "Tienda no habilitada aún"
+    }
+    const btnComponent = isPlacingOrder ? (
+      <span className="loader"></span>
+    ) : (
+      texts.cart.placeOrder
+    )
+    return btnComponent
+  }
 
   return (
     <>
@@ -300,15 +339,11 @@ const Cart = () => {
                     <div className="amount">{CURRENCY} {totalValue}</div>
                   </div>
                   <button
-                    className="order"
+                    className={isStoreEnabledVar ? "order" : "order-disabled"}
                     onClick={placeOrderHandler}
-                    disabled={isPlacingOrder}
+                    disabled={isPlacingOrder || !isStoreEnabledVar}
                   >
-                    {isPlacingOrder ? (
-                      <span className="loader"></span>
-                    ) : (
-                      texts.cart.placeOrder
-                    )}
+                    {orderBtnMsg()}
                   </button>
                 </div>
               </div>

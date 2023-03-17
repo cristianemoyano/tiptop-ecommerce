@@ -124,11 +124,50 @@
         "category": "Pantalones",
         "name": "Pantalón de Jean Regular Modelo Brockton Wrangler",
         "color": "Azul",
-        "amount": "3000",
+        "amount": "4000",
         "description": "Pantalón de Jean azul regular con cierre de cremallera. Modelo clásico Brockton. Composición: ALGODÓN",
         "stock": 1,
         "gender": "Hombre",
         "sizes": ["48"]
+      },
+      {
+        "id": "1010",
+        "imageURL": "https://gateway.pinata.cloud/ipfs/QmT8mPXVJqpeqWDhoUHu2kmGk7JgkHwBSirn4SQ6AohLLv?_gl=1*46ay7x*_ga*NmE4NTU3ZjItODFhZS00YzhhLWFiYWMtZjc2OWY3MTA2N2Nj*_ga_5RMPXG14TE*MTY3OTAxNDEzOC4xLjEuMTY3OTAyMDEwMC41OC4wLjA.",
+        "brand": "Furest",
+        "category": "Pantalones",
+        "name": "Pantalón de vestir recto negro Furest",
+        "color": "Negro",
+        "amount": "3000",
+        "description": "Pantalón de vestir negro con cierre de cremallera. Composición: ALGODÓN",
+        "stock": 1,
+        "gender": "Hombre",
+        "sizes": ["52"]
+      },
+      {
+        "id": "1011",
+        "imageURL": "https://gateway.pinata.cloud/ipfs/QmeExxfP49TfyGdstKTY3zXvGjGN6Utp1D765Pz8554qMj?_gl=1*1rc6yeg*_ga*NmE4NTU3ZjItODFhZS00YzhhLWFiYWMtZjc2OWY3MTA2N2Nj*_ga_5RMPXG14TE*MTY3OTAxNDEzOC4xLjEuMTY3OTAyMDUwMS42MC4wLjA.",
+        "brand": "Piedravlanca",
+        "category": "Pantalones",
+        "name": "Pantalón de vestir recto negro Piedravlanca",
+        "color": "Negro",
+        "amount": "2800",
+        "description": "Pantalón de vestir negro con cierre de cremallera. Composición: ACETATO Y VISCOSA",
+        "stock": 1,
+        "gender": "Hombre",
+        "sizes": ["54"]
+      },
+      {
+        "id": "1012",
+        "imageURL": "https://gateway.pinata.cloud/ipfs/QmVa6pcNPceHRoRxiMxKs4ietMMwS4R9pqJQBHJsFvuR2d?_gl=1*ol2cr5*_ga*NmE4NTU3ZjItODFhZS00YzhhLWFiYWMtZjc2OWY3MTA2N2Nj*_ga_5RMPXG14TE*MTY3OTAxNDEzOC4xLjEuMTY3OTAyMTAyNC41OS4wLjA.",
+        "brand": "Bando",
+        "category": "Pantalones",
+        "name": "Pantalón de Jean azul slim fit Bando",
+        "color": "Azul",
+        "amount": "3500",
+        "description": "Pantalón de Jean azul slim fit con cierre de cremallera. Composición: ALGODÓN",
+        "stock": 1,
+        "gender": "Hombre",
+        "sizes": ["52"]
       }
     ]
   }

@@ -17,6 +17,7 @@ import SizeChartForBottoms from '../../components/SizeChartForBottoms';
 import { CURRENCY, getFormattedCurrency } from '../../utils/getFormattedCurrency';
 import { getText } from '../../utils/getText';
 import { WishlistIcon } from '../../assets/icons';
+import isStoreEnabled from '../../utils/isStoreEnabled';
 
 const MainNav = styled.div`
   font-size: 14px;
@@ -327,6 +328,7 @@ const ItemDetails = ({ productID }) => {
 
   const isWishlisted = !!wishlistItems.find((value) => value.itemId === productID);
   const isOutStock = Number(item?.stock) <= 0;
+  const isStoreEnabledVar = isStoreEnabled();
 
   const cartItem = cartItems.find(
     (item) => item.itemId === productID && item.itemSize === size
@@ -358,6 +360,9 @@ const ItemDetails = ({ productID }) => {
   };
 
   const addToCartHandler = () => {
+    if (!isStoreEnabledVar) {
+      return
+    }
 
     if (user) {
       if (isInCart) {
@@ -441,6 +446,9 @@ const ItemDetails = ({ productID }) => {
   }
 
   const cartMsg = () => {
+    if (!isStoreEnabledVar) {
+      return "Tienda no habilitada aún"
+    }
     return isOutStock ? "No disponible" : texts.products.cart;
   }
 
@@ -493,9 +501,9 @@ const ItemDetails = ({ productID }) => {
                 {isWishlisted ?  wishlistIcon() : texts.wishlist.title}
               </button>
               <button
-                className={isOutStock ? "cart-disabled" : "cart" }
+                className={isOutStock || !isStoreEnabledVar ? "cart-disabled" : "cart" }
                 onClick={addToCartHandler}
-                disabled={isLoading || isOutStock}
+                disabled={isLoading || isOutStock || !isStoreEnabledVar}
               >
                 {isLoading ? <span className="loader"></span> : cartMsg()}
               </button>
