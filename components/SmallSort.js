@@ -62,7 +62,7 @@ const SmallSort = () => {
       {showSort && (
         <Modal closeHandler={closeSortHander}>
           <ModalDiv>
-            <div className="title">Sort by</div>
+            <div className="title">Ordenar por</div>
             <SortBy />
           </ModalDiv>
         </Modal>

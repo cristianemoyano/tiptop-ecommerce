@@ -54,7 +54,7 @@ const SmallFilter = ({ brandItems, categoryItems }) => {
       {showFilter && (
         <Modal closeHandler={closeFilterHandler}>
           <ModalDiv>
-            <div className="title">Filter</div>
+            <div className="title">Filtrar</div>
             <div className="filters">
               <BrandFilter items={brandItems} />
               <CategoryFilter items={categoryItems} />
