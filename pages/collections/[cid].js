@@ -469,6 +469,7 @@ const ItemDetails = ({ productID }) => {
             <div className="name">Marca: {item.brand}</div>
             <div className="name">Stock: {item?.stock}</div>
             <div className="name">Código: #{item?.id}</div>
+            <div className="name">Condición: {item?.condition}</div>
             <div className="amount">{`${CURRENCY} ${getFormattedCurrency(
               item.amount
             )}`}</div>

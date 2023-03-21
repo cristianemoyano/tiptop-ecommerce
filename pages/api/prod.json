@@ -11,6 +11,7 @@
         "description": "Chomba color Rosa de mangas cortas. Composición: ALGODÓN",
         "stock": 1,
         "gender": "Hombre",
+        "condition": "Usado",
         "sizes": ["XL"]
       },
       {
@@ -24,6 +25,7 @@
         "description": "Chomba color Gris de mangas cortas. Composición: ALGODÓN",
         "stock": 1,
         "gender": "Hombre",
+        "condition": "Usado",
         "sizes": ["L"]
       },
       {
@@ -37,6 +39,7 @@
         "description": "Remera lisa color Azul oscuro marino de escote redondo y bolsillo. Composición: ALGODÓN",
         "stock": 1,
         "gender": "Hombre",
+        "condition": "Usado",
         "sizes": ["XL"]
       },
       {
@@ -50,6 +53,7 @@
         "description": "Remera estampada color gris de escote redondo. Composición: ALGODÓN",
         "stock": 1,
         "gender": "Hombre",
+        "condition": "Usado",
         "sizes": ["L"]
       },
       {
@@ -63,6 +67,7 @@
         "description": "Remera Básica color Negro de escote redondo. Composición: ALGODÓN",
         "stock": 1,
         "gender": "Hombre",
+        "condition": "Usado",
         "sizes": ["XL"]
       },
       {
@@ -76,6 +81,7 @@
         "description": "Remera estampada color gris de escote redondo. Composición: ALGODÓN",
         "stock": 1,
         "gender": "Hombre",
+        "condition": "Usado",
         "sizes": ["XL"]
       },
       {
@@ -89,6 +95,7 @@
         "description": "Remera estampada AC/DC color gris de escote redondo. Composición: ALGODÓN",
         "stock": 1,
         "gender": "Hombre",
+        "condition": "Usado",
         "sizes": ["L"]
       },
       {
@@ -102,6 +109,7 @@
         "description": "Remera Básica color Negro, escote en V. Composición: ALGODÓN",
         "stock": 1,
         "gender": "Hombre",
+        "condition": "Usado",
         "sizes": ["XL"]
       },
       {
@@ -115,6 +123,7 @@
         "description": "Pantalón de Jean negro recto con cierre de botones. Composición: ALGODÓN",
         "stock": 1,
         "gender": "Hombre",
+        "condition": "Usado",
         "sizes": ["XL"]
       },
       {
@@ -128,6 +137,7 @@
         "description": "Pantalón de Jean azul regular con cierre de cremallera. Modelo clásico Brockton. Composición: ALGODÓN",
         "stock": 1,
         "gender": "Hombre",
+        "condition": "Usado",
         "sizes": ["48"]
       },
       {
@@ -141,6 +151,7 @@
         "description": "Pantalón de vestir negro con cierre de cremallera. Composición: ALGODÓN",
         "stock": 1,
         "gender": "Hombre",
+        "condition": "Usado",
         "sizes": ["52"]
       },
       {
@@ -154,6 +165,7 @@
         "description": "Pantalón de vestir negro con cierre de cremallera. Composición: ACETATO Y VISCOSA",
         "stock": 1,
         "gender": "Hombre",
+        "condition": "Usado",
         "sizes": ["54"]
       },
       {
@@ -167,6 +179,7 @@
         "description": "Pantalón de Jean azul slim fit con cierre de cremallera. Composición: ALGODÓN",
         "stock": 1,
         "gender": "Hombre",
+        "condition": "Usado",
         "sizes": ["52"]
       }
     ]

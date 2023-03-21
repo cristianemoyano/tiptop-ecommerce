@@ -13,6 +13,15 @@ const Div = styled.div`
     color: inherit;
   }
 
+  .condition {
+    background: #deeeff;
+    width: 70px;
+    text-align: center;
+    padding: 5px;
+    font-weight: 50;
+    margin: 10px 0px 0px 0px;
+  }
+
   .info {
     padding: 8px;
 
@@ -31,7 +40,7 @@ const Div = styled.div`
   }
 `;
 
-const ItemCard = ({ id, imageURL, brand, name, amount, setPriority, stock, sizes, color, imageResponsive=true, imgWidth=220, imgHeight=275 }) => {
+const ItemCard = ({ id, imageURL, brand, name, amount, setPriority, stock, sizes, color, condition, imageResponsive=true, imgWidth=220, imgHeight=275 }) => {
   return (
     <Div>
       <BetterLink href={`/collections/${id}`}>
@@ -45,6 +54,7 @@ const ItemCard = ({ id, imageURL, brand, name, amount, setPriority, stock, sizes
         />
         <div className="info">
           <div className="brand">{brand}</div>
+          <div className='condition'> {String(condition).toLowerCase()}</div>
           <div className="name">{name}</div>
           {stock ? (
             <div className="name">Stock: {stock} · Talle: {sizes} · Color: {color}</div>
