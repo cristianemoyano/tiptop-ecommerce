@@ -241,6 +241,7 @@ const Products = ({ }) => {
     const handleWindowResize = () => setWidth(window.innerWidth);
     window.addEventListener('resize', handleWindowResize);
 
+    setIsLoading(true)
     getProductsPaginated(lastProduct, onGetProducts);
 
     return () => {
@@ -255,6 +256,30 @@ const Products = ({ }) => {
     getProductsPaginated(lastProduct, onGetProducts);
   };
 
+  const ProductsComponent = () => {
+    if (filteredClothes.length > 0) {
+      return (
+        <div>
+          <div className="clothes">
+            {filteredClothes.map((item, index) => (
+              <ItemCard key={item.id} {...item} setPriority={index < 8} />
+            ))}
+          </div>
+          <div className='center'>
+            <button className={isEndPagination ? 'load-disabled' : 'load-more'} onClick={handleLoadMore} disabled={isEndPagination}>
+              {isLoading ? (<><span className="loader"></span></>) : 'Cargar más productos'}
+            </button>
+          </div>
+        </div>
+      )
+
+    } else {
+      return (
+        <EmptyResults />
+      )
+    }
+  }
+
   return (
     <>
       <Head>
@@ -267,7 +292,7 @@ const Products = ({ }) => {
         {width > 640 && (
           <aside className="aside">
             <div className='fixedElement'>
-            <div className="title">{texts.products.filters}</div>
+              <div className="title">{texts.products.filters}</div>
               <hr></hr>
               <BrandFilter items={brands} />
               <CategoryFilter items={categories} />
@@ -288,25 +313,7 @@ const Products = ({ }) => {
               </div>
             )}
           </div>
-          {filteredClothes.length > 0 ? (
-            <div>
-              <div className="clothes">
-                {filteredClothes.map((item, index) => (
-                  <ItemCard key={item.id} {...item} setPriority={index < 8} />
-                ))}
-              </div>
-              <div className='center'>
-                <button className={isEndPagination ? 'load-disabled' : 'load-more'} onClick={handleLoadMore} disabled={isEndPagination}>
-                  {isLoading ? (<><span className="loader"></span></>) : 'Cargar más productos'}
-                </button>
-              </div>
-            </div>
-
-
-
-          ) : (
-            <EmptyResults />
-          )}
+          {isLoading ? 'Cargando..' : ProductsComponent()}
         </main>
       </Div>
     </>

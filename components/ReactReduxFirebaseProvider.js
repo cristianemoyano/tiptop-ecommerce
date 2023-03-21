@@ -6,12 +6,10 @@ import { doc, onSnapshot } from 'firebase/firestore';
 
 import { auth } from '../services/firebase-config';
 import { authActions } from '../store/authSlice';
-import { productsActions } from '../store/productSlice';
 import { wishlistActions } from '../store/wishlistSlice';
 import { cartActions } from '../store/cartSlice';
 import { db } from '../services/firebase-config';
 
-import { getProducts } from '../utils/getItems';
 
 import Loading from './Loading';
 
@@ -22,12 +20,6 @@ const ReactReduxFirebaseWrapper = ({ children }) => {
   const subscriptions = [];
 
   useEffect(() => {
-
-    // products
-    const onGetProducts = (products) => {
-      dispatch(productsActions.setItems(products));
-    }
-    getProducts(onGetProducts)
 
     const authSub = onAuthStateChanged(
       auth,

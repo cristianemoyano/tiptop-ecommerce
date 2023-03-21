@@ -4,6 +4,7 @@ const ES = {
   },
   "orders": {
     "title": "Mis pedidos",
+    "empty": "No tienes pedidos aún."
   },
   "prompt": {
     "title": "Por favor iniciar sesión",

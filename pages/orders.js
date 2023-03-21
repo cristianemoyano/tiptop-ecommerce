@@ -4,6 +4,7 @@ import Link from 'next/link';
 import Head from 'next/head';
 
 import { useSelector } from 'react-redux';
+import EmptyOrder from '../components/EmptyOrder';
 import MyOrderItemCard from '../components/MyOrderItemCard';
 
 import getMyOrders from '../utils/getMyOrders'
@@ -99,15 +100,15 @@ const Orders = () => {
   const [myOrders, setMyOrders] = useState([]);
 
   const user = useSelector((state) => state.auth.user);
- 
+
   useEffect(() => {
 
     const onGetMyOrders = (myOrders) => {
       setMyOrders(myOrders)
     }
-  
+
     getMyOrders(user, onGetMyOrders)
-   
+
   }, []);
 
   const texts = getText('es')
@@ -120,22 +121,23 @@ const Orders = () => {
       <MainNav>
         <Link href="/">{texts.home.title}</Link> / <span>{texts.orders.title}</span>
       </MainNav>
-      <Alias/>
-      {myOrders.map((order)=>{
-        return (
-          order.id
-        )
-      })}
-      <Div>
-      <div className='orders'>
-      {myOrders.map((order, index) => (
-        <MyOrderItemCard
-        key={index}
-        {...order}
-      />
-      ))}
-      </div>
-      </Div>
+      {user ? (
+        <>
+          <Alias />
+          <Div>
+            <div className='orders'>
+              {myOrders.map((order, index) => (
+                <MyOrderItemCard
+                  key={index}
+                  {...order}
+                />
+              ))}
+            </div>
+          </Div>
+        </>
+      ) : (
+        <EmptyOrder />
+      )}
 
     </>
   );
