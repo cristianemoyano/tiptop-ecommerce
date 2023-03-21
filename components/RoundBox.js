@@ -7,8 +7,8 @@ import { CheckIcon } from '../assets/icons';
 
 const Button = styled.button`
   flex-shrink: 0;
-  width: 18px;
-  height: 18px;
+  width: 20px !important;
+  height: 20px !important;
   border: 1px #bbb solid;
   border-radius: 50%;
   background-color: gray;

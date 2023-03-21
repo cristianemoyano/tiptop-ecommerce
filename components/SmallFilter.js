@@ -17,7 +17,7 @@ const Button = styled.button`
   padding: 4px;
   margin-right: 8px;
   cursor: pointer;
-  width: 10px;
+  width: 100px;
 `;
 
 const ModalDiv = styled.div`

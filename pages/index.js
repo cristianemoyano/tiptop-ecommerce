@@ -102,7 +102,7 @@ const Div = styled.div`
       outline: none;
       cursor: pointer;
       border: none;
-      width: 140px;
+      width: 100px;
       height: 48px;
     }
 

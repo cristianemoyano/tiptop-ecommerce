@@ -7,8 +7,8 @@ import { filterActions } from '../store/filterSlice';
 
 const Button = styled.button`
   flex-shrink: 0;
-  width: 13px;
-  height: 18px;
+  width: 15px !important;
+  height: 18px !important;
   border: 1px #bbb solid;
   border-color: #4a00e0;
   border-radius: 2px;
