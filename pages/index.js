@@ -313,7 +313,7 @@ const Products = ({ }) => {
               </div>
             )}
           </div>
-          {isLoading ? 'Cargando..' : ProductsComponent()}
+          {isLoading && filteredClothes.length === 0? 'Cargando..' : ProductsComponent()}
         </main>
       </Div>
     </>
