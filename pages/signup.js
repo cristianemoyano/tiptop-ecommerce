@@ -11,6 +11,7 @@ import { LogoIcon } from '../assets/icons';
 import { validateEmail, validatePassword } from '../utils/formValidation';
 import { auth } from '../services/firebase-config';
 import { db } from '../services/firebase-config';
+import { getText } from '../utils/getText';
 
 const MainNav = styled.div`
   font-size: 14px;
@@ -194,8 +195,10 @@ const Div = styled.div`
 const SignUp = () => {
   const [nameInput, setNameInput] = useState('');
   const [emailInput, setEmailInput] = useState('');
+  const [phoneInput, setPhoneInput] = useState('');
   const [passwordInput, setPasswordInput] = useState('');
   const [startNameValidation, setStartNameValidation] = useState(false);
+  const [startPhoneValidation, setStartPhoneValidation] = useState(false);
   const [startEmailValidation, setStartEmailValidation] = useState(false);
   const [startPasswordValidation, setStartPasswordValidation] = useState(false);
   const [serverErrorMessage, setServerErrorMessage] = useState('');
@@ -209,6 +212,7 @@ const SignUp = () => {
   }
 
   const isNameValid = nameInput.length !== 0;
+  const isPhoneValid = phoneInput.length !== 0;
   const isEmailValid = emailInput.length !== 0 && validateEmail(emailInput);
   const isPasswordValid =
     passwordInput.length !== 0 && validatePassword(passwordInput);
@@ -216,6 +220,11 @@ const SignUp = () => {
   const nameInputHandler = (ev) => {
     setServerErrorMessage('');
     setNameInput(ev.target.value);
+  };
+
+  const phoneInputHandler = (ev) => {
+    setServerErrorMessage('');
+    setPhoneInput(ev.target.value);
   };
 
   const emailInputHandler = (ev) => {
@@ -232,10 +241,11 @@ const SignUp = () => {
     ev.preventDefault();
 
     setStartNameValidation(true);
+    setStartPhoneValidation(true);
     setStartEmailValidation(true);
     setStartPasswordValidation(true);
 
-    if (isNameValid && isEmailValid && isPasswordValid && !serverErrorMessage) {
+    if (isNameValid && isPhoneValid && isEmailValid && isPasswordValid && !serverErrorMessage) {
       setIsLoading(true);
       createUserWithEmailAndPassword(auth, emailInput, passwordInput)
         .then((userCredential) => {
@@ -243,6 +253,7 @@ const SignUp = () => {
           setDoc(doc(db, uid, 'account'), {
             name: nameInput,
             email: emailInput,
+            phone: phoneInput,
           })
             .then(() => {
               setDoc(doc(db, uid, 'wishlist'), {
@@ -272,13 +283,15 @@ const SignUp = () => {
     }
   };
 
+  const texts = getText('es');
+
   return (
     <>
       <Head>
-        <title>Sign Up</title>
+        <title>{texts.signup.title}</title>
       </Head>
       <MainNav>
-        <Link href="/">Home</Link> / <span>Sign Up</span>
+        <Link href="/">{texts.home.title}</Link> / <span>{texts.signup.title}</span>
       </MainNav>
       <Div>
         {user ? (
@@ -307,12 +320,30 @@ const SignUp = () => {
                     type="text"
                     name="name"
                     id="name"
-                    placeholder="Name"
+                    placeholder={texts.signup.name}
                     value={nameInput}
                     onChange={nameInputHandler}
                     onBlur={() => setStartNameValidation(false)}
                   />
-                  <span className="hint">Name cannot be empty</span>
+                  <span className="hint">{texts.signup.invalid_name}</span>
+                </div>
+                <div
+                  className={`form-control ${
+                    startPhoneValidation ? (isPhoneValid ? '' : 'error') : ''
+                  }`}
+                >
+                  <input
+                    type="tel"
+                    name="phone"
+                    id="phone"
+                    pattern="[0-9]{4}-[0-9]{3}-[0-9]{4}"
+                    placeholder={texts.signup.tel}
+                    value={phoneInput}
+                    onChange={phoneInputHandler}
+                    onBlur={() => setStartPhoneValidation(false)}
+                  />
+                  <small>Formato: 0261-591-5718</small>
+                  <span className="hint">{texts.signup.invalid_name}</span>
                 </div>
                 <div
                   className={`form-control ${
@@ -323,7 +354,7 @@ const SignUp = () => {
                     type="email"
                     name="email"
                     id="email"
-                    placeholder="Email"
+                    placeholder={texts.signup.email}
                     value={emailInput}
                     onChange={emailInputHandler}
                     onBlur={() => setStartEmailValidation(false)}
@@ -331,9 +362,9 @@ const SignUp = () => {
                   <span className="hint">{`${
                     startEmailValidation
                       ? emailInput.length === 0
-                        ? 'Email cannot be empty'
+                        ? texts.signup.required_email
                         : !validateEmail(emailInput)
-                        ? 'Email is not valid'
+                        ? texts.signup.invalid_email
                         : ''
                       : ''
                   }`}</span>
@@ -351,7 +382,7 @@ const SignUp = () => {
                     type="password"
                     name="password"
                     id="password"
-                    placeholder="Password"
+                    placeholder={texts.signup.password}
                     value={passwordInput}
                     onChange={passwordInputHandler}
                     onBlur={() => setStartPasswordValidation(false)}
@@ -359,9 +390,9 @@ const SignUp = () => {
                   <span className="hint">{`${
                     startPasswordValidation
                       ? passwordInput.length === 0
-                        ? 'Password cannot be empty'
+                        ? texts.signup.required_password
                         : !validatePassword(passwordInput)
-                        ? 'Min 6 characters required'
+                        ? texts.signup.invalid_password
                         : ''
                       : ''
                   }`}</span>
@@ -371,7 +402,7 @@ const SignUp = () => {
                 </button>
               </form>
               <p className="info">
-                Do you have an account? <Link href="/signin">Sign In</Link>
+                {texts.signup.signin_q} <Link href="/signin">Iniciar Sesión</Link>
               </p>
             </div>
           </>

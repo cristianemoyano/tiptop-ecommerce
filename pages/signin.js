@@ -399,13 +399,6 @@ const SignIn = () => {
                 </button>
               </form>
               <div className="ext">
-                {/* <button
-                  type="button"
-                  disabled={isGuestLoading}
-                  onClick={signInAsGuestHandler}
-                >
-                  Continue as Guest
-                </button> */}
                 {isGuestLoading && <span className="loader small"></span>}
               </div>
               <p className="info">

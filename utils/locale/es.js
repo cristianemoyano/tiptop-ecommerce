@@ -70,6 +70,27 @@ const ES = {
     "invalid_email": "Email inválido",
     "signup": "Registrarse",
     "signup_q": "No tienes cuenta?",
+  },
+  "signup": {
+    "title": "Registrarse",
+    "invalid_name": "Nombre inválido",
+    "name": "Nombre",
+    "tel": "Teléfono",
+    "required_tel": "Teléfono no puede estar vacío",
+
+    "email": "Email",
+    "required_email": "Email no puede estar vacío.",
+    "invalid_email": "Email inválido",
+
+
+    "password": "Contraseña",
+    "required_password": "Contraseña no puede estar vacía.",
+    "invalid_password": "Al menos 6 caracteres debe contener la contraseña",
+    
+    
+    "signup": "Registrarse",
+    "signin_q": "Ya tienes una cuenta?",
+    "sigin": "Iniciar sesión",
   }
 }
 
